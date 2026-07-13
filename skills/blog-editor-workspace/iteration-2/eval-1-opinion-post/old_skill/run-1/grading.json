@@ -1,0 +1,13 @@
+{
+  "summary": {"pass_rate": 0.625, "passed": 5, "failed": 3, "total": 8},
+  "expectations": [
+    {"text": "Opening uses a provocative question or bold claim; doesn't bury the lede", "passed": true, "evidence": "Strong pattern-based lede ('The first warning sign is usually not latency... It is a calendar.') — engaging and not buried, though achieved without explicit skill guidance."},
+    {"text": "Major claims backed by numbers/examples from notes; unbackable claims [FILL] or cut", "passed": true, "evidence": "All note numbers used (dozen, 5 years, ~2, 8/15, 40%, 20+); [FILL] markers for measurement method and anonymized examples."},
+    {"text": "Ending includes a concrete next action", "passed": true, "evidence": "Question checklist before splitting + 'Start there.' — actionable, though less specific than a this-week action."},
+    {"text": "Closes with genuine engagement question, no like-begging", "passed": false, "evidence": "No engagement question anywhere; post ends on the tribute-band quip. Old skill has no CTA guidance."},
+    {"text": "Three strategy-diverse titles, one recommended with reason", "passed": false, "evidence": "Title + 2 alternates format; no strategies labeled, no recommendation reason given."},
+    {"text": "Working title in the writing plan", "passed": false, "evidence": "Plan contains hook/sections/takeaway/visuals but no title; title appears only after the plan."},
+    {"text": "Concrete section subheadings", "passed": true, "evidence": "'The 40% infrastructure tax', 'The unflattering reasons teams choose them' — concrete."},
+    {"text": "No banned phrases; no invented details; fair counterpoint", "passed": true, "evidence": "Clean scan; 'When microservices make sense' section covers the three legitimate cases; decision flowchart is derived from notes, not invented facts."}
+  ]
+}

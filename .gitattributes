@@ -1,0 +1,2 @@
+# 1. Handle text files automatically (forces LF inside the Git repository)
+* text=auto

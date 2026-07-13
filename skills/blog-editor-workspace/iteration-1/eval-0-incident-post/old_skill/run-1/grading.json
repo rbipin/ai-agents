@@ -1,0 +1,13 @@
+{
+  "summary": {"pass_rate": 0.5, "passed": 4, "failed": 4, "total": 8},
+  "expectations": [
+    {"text": "Three title options, each using a visibly different strategy", "passed": false, "evidence": "Delivered 'Title + 2 alternates' per old skill; strategies not deliberately diversified or labeled (two of three are declarative statements)."},
+    {"text": "One title marked as recommended with a stated reason", "passed": false, "evidence": "Main title implied as pick but no reason given for choosing it over alternates."},
+    {"text": "Titles use trigger word OR number (not both crammed), avoid 'things'", "passed": true, "evidence": "'Our CI Got 3x Slower and Nobody Noticed' — number only; no 'things'."},
+    {"text": "Titles avoid clickbait adjectives while making a concrete promise", "passed": true, "evidence": "No clickbait adjectives; honest framing. 'Your CI Pipeline Is Probably Slower Than You Think' is mildly assumptive but acceptable."},
+    {"text": "Writing plan includes a working title drafted before writing", "passed": false, "evidence": "Plan has hook/sections/takeaway/visuals but no title; title appears only at delivery."},
+    {"text": "Section subheadings carry a concrete point/promise, not generic labels", "passed": true, "evidence": "'The slow part was not sudden', 'The cache was basically gone' — concrete (model did this unprompted)."},
+    {"text": "Story-first opening, ~1000-1400 words, no banned phrases", "passed": true, "evidence": "Opens with new hire's question; post body ~1,450 words (slightly over but close); no banned phrases found."},
+    {"text": "All facts trace to notes; gaps marked [FILL: ...]", "passed": false, "evidence": "Invented Node/npm specifics (package.json, npm ci) in code snippets presented as 'the important part looked like this before the refactor' — flagged only later in editor's notes as representative; skill says never invent technical details."}
+  ]
+}

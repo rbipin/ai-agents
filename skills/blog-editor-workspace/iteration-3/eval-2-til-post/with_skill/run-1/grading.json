@@ -1,0 +1,13 @@
+{
+  "summary": {"pass_rate": 1.0, "passed": 8, "failed": 0, "total": 8},
+  "expectations": [
+    {"text": "Identifies TIL archetype", "passed": true, "evidence": "Phase 1: 'Archetype: TIL, with a light incident/war-story opening' — blend explicitly named."},
+    {"text": "Body ~300-600 words (TIL exception)", "passed": true, "evidence": "Measured 572 words — inside the TIL budget."},
+    {"text": "Quick, humble, generous tone; one nugget, no ceremony", "passed": true, "evidence": "Single trick (exit-code contract), minimal script, self-deprecating without padding ('I had determination. What I did not have was awareness of git bisect run.')."},
+    {"text": "Facts traceable; gaps [FILL]", "passed": true, "evidence": "3 hours, ~200 commits, 4 min, 8 steps, exit 0/non-zero, curl health check all from notes; build command and endpoint left as [FILL]."},
+    {"text": "Fresh-eyes review evidence", "passed": true, "evidence": "'Fresh-eyes review summary' section covering all four dimensions plus 'Reviewer flags' with judgment calls surfaced for the user."},
+    {"text": "Next action + engagement question", "passed": true, "evidence": "'Can I write a tiny script that says good or bad?' habit + 'What is the most useful tiny Git command you learned embarrassingly late?'"},
+    {"text": "Three strategy-diverse titles with reasoned pick; working title in plan", "passed": true, "evidence": "TIL promise (recommended, with reason), how+before/after, numbers+contrast; working title in Phase 3."},
+    {"text": "No banned phrases or AI-tells", "passed": true, "evidence": "Clean scan; varied paragraph rhythm."}
+  ]
+}

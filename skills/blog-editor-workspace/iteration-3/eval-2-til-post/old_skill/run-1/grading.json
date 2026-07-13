@@ -1,0 +1,13 @@
+{
+  "summary": {"pass_rate": 0.25, "passed": 2, "failed": 6, "total": 8},
+  "expectations": [
+    {"text": "Identifies TIL archetype", "passed": false, "evidence": "No archetype concept in old skill; treated as a standard war-story post."},
+    {"text": "Body ~300-600 words (TIL exception)", "passed": false, "evidence": "Measured 1,136 words — nearly double the TIL budget, driven by the old skill's 1000-1400 word target."},
+    {"text": "Quick, humble, generous tone; one nugget, no ceremony", "passed": false, "evidence": "Padded with a second full script variant (trap/cleanup/pipefail), a 'full flow' section, and extended reflection — a deep-dive tutorial, not a TIL."},
+    {"text": "Facts traceable; gaps [FILL]", "passed": true, "evidence": "All note facts used; six [FILL] markers for project specifics."},
+    {"text": "Fresh-eyes review evidence", "passed": false, "evidence": "No review pass mentioned; old skill has no Phase 5 review."},
+    {"text": "Next action + engagement question", "passed": false, "evidence": "Has a personal-habit takeaway but no reader-directed action and no engagement question despite dev.to target."},
+    {"text": "Three strategy-diverse titles with reasoned pick; working title in plan", "passed": false, "evidence": "Title + 2 alternates, no strategies or recommendation reason; plan has no working title."},
+    {"text": "No banned phrases or AI-tells", "passed": true, "evidence": "Agent-verified clean scan."}
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "summary": {"pass_rate": 1.0, "passed": 8, "failed": 0, "total": 8},
+  "expectations": [
+    {"text": "Identifies showcase/plug archetype", "passed": true, "evidence": "Phase 1: 'a credible Showcase / plug with a war-story spine' — blend named."},
+    {"text": "Leads with reader's problem, not features; doesn't read like an ad", "passed": true, "evidence": "Opens with the REDIS_URL incident; tool introduced only after the pain is established; explicitly disclaims 'I do not want anyone treating a small weekend CLI as a replacement for secret scanning'."},
+    {"text": "Limitations stated openly in the body", "passed": true, "evidence": "Dedicated 'Small on purpose, honest about limits' section with a support table listing .env/JSON only, no YAML, basic regex secrets scanning — plus 'developer tools earn trust by being clear about their edges'."},
+    {"text": "Facts traceable; gaps [FILL]", "passed": true, "evidence": "800 lines Go, single binary, no deps, 340 stars/2 months, REDIS_URL incident all from notes; repo URL, install command, example commands left as [FILL] rather than invented CLI syntax."},
+    {"text": "Fresh-eyes review evidence", "passed": true, "evidence": "'Phase 5 fresh-eyes review summary' plus 'Reviewer flags needing user judgment' (e.g., clarify 'no deps' wording, add real CLI output)."},
+    {"text": "Next action + engagement question, no star-begging", "passed": true, "evidence": "'give envdiff a try against one service this week... Pick one app.' + 'What kind of environment drift has bitten your team...?'; asks for contributions, never stars."},
+    {"text": "Three strategy-diverse titles with reasoned pick; working title in plan", "passed": true, "evidence": "Why-trigger (recommended, with reason), number+incident, how+utility; working title in the plan."},
+    {"text": "No banned phrases; honest enthusiasm", "passed": true, "evidence": "Clean scan; enthusiasm present ('exciting and a little suspicious') with honest scope claims."}
+  ]
+}

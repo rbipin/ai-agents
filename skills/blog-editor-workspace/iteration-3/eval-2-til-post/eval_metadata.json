@@ -1,0 +1,15 @@
+{
+  "eval_id": 2,
+  "eval_name": "til-post-git-bisect",
+  "prompt": "TIL: git bisect run automates finding the breaking commit. 3 hours manual vs 4 minutes / 8 automatic steps across ~200 commits. Script exits 0 good / non-zero bad, curl'd health endpoint after local build. Audience: any developer. Platform: dev.to.",
+  "assertions": [
+    "Plan/output identifies the post as the TIL archetype",
+    "Post body is roughly 300-600 words (TIL length exception), not padded to 1000+",
+    "Tone is quick, humble, generous — one nugget delivered without ceremony or extended storytelling",
+    "Facts traceable to notes (3 hours, ~200 commits, 4 minutes, 8 steps, exit 0/non-zero, curl health endpoint); gaps marked [FILL]",
+    "Evidence of a fresh-eyes review pass (Phase 5): review mentioned in output and/or reviewer flags in editor's notes",
+    "Ending has a concrete next action and, given dev.to, a genuine engagement question",
+    "Three strategy-diverse titles with a recommended pick and reason; working title in plan",
+    "No banned phrases or AI-tells"
+  ]
+}

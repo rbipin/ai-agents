@@ -1,0 +1,13 @@
+{
+  "summary": {"pass_rate": 0.5, "passed": 4, "failed": 4, "total": 8},
+  "expectations": [
+    {"text": "Identifies showcase/plug archetype", "passed": false, "evidence": "No archetype concept in old skill."},
+    {"text": "Leads with reader's problem, not features; doesn't read like an ad", "passed": true, "evidence": "Opens with the REDIS_URL incident before introducing the tool — model did this well unprompted."},
+    {"text": "Limitations stated openly in the body", "passed": true, "evidence": "'.env and JSON only... YAML support is not there yet, which I know will be a dealbreaker for some teams. Secret scanning is also basic regex' — stated plainly."},
+    {"text": "Facts traceable; gaps [FILL]", "passed": true, "evidence": "All note facts used; five [FILL] markers for repo URL, commands, CI examples."},
+    {"text": "Fresh-eyes review evidence", "passed": false, "evidence": "No review pass; old skill has no Phase 5 review."},
+    {"text": "Next action + engagement question, no star-begging", "passed": false, "evidence": "'Run a diff before prod does it for you' is a decent next action and there's no star-begging, but no engagement question despite the dev.to target."},
+    {"text": "Three strategy-diverse titles with reasoned pick; working title in plan", "passed": false, "evidence": "'Recommended title' given without a reason; no strategy labels; no working title in the plan."},
+    {"text": "No banned phrases; honest enthusiasm", "passed": true, "evidence": "Agent-verified clean; honest tone throughout."}
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "eval_id": 3,
+  "eval_name": "showcase-post-envdiff",
+  "prompt": "Showcase open-source CLI 'envdiff': diffs env configs across stages, flags drift. Born from a REDIS_URL prod incident. ~800 lines Go, single binary, 340 stars in 2 months. Limitations: .env/JSON only, no YAML, basic regex secrets scanning. Wants users and contributors. Audience: DevOps/backend. Platform: dev.to.",
+  "assertions": [
+    "Plan/output identifies the post as the showcase/plug archetype (possibly blended with war story)",
+    "Leads with the reader's problem (config drift / the REDIS_URL incident), not with the tool's features — does not read like an ad",
+    "Known limitations (.env/JSON only, no YAML, basic regex secrets scanning) are stated openly in the post body, not hidden",
+    "Facts traceable to notes (800 lines Go, single binary, no deps, 340 stars/2 months, REDIS_URL incident); gaps marked [FILL]",
+    "Evidence of a fresh-eyes review pass (Phase 5): review mentioned in output and/or reviewer flags in editor's notes",
+    "Ending has a concrete next action (try it / contribute) and a genuine engagement question, without begging for stars",
+    "Three strategy-diverse titles with a recommended pick and reason; working title in plan",
+    "No banned phrases or AI-tells; enthusiasm present but claims honest"
+  ]
+}

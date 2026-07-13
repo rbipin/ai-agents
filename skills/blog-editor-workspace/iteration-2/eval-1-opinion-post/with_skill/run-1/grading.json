@@ -1,0 +1,13 @@
+{
+  "summary": {"pass_rate": 1.0, "passed": 8, "failed": 0, "total": 8},
+  "expectations": [
+    {"text": "Opening uses a provocative question or bold claim; doesn't bury the lede", "passed": true, "evidence": "Opens with the thesis as a bold one-line claim: 'Most teams should not adopt microservices.' Lede delivered in sentence one."},
+    {"text": "Major claims backed by numbers/examples from notes; unbackable claims [FILL] or cut", "passed": true, "evidence": "Dozen companies/5 years/~2 needed, 8-person/15-service pattern, 40% plumbing, 90% benefit, 20+ engineer threshold all used; anonymized example left as [FILL]; 40% hedged as 'one common pattern from my consulting work'."},
+    {"text": "Ending includes a concrete next action", "passed": true, "evidence": "'This week, pick one area of your monolith that people are afraid to touch. Draw its real dependencies. Choose one boundary to enforce in code...'"},
+    {"text": "Closes with genuine engagement question, no like-begging", "passed": true, "evidence": "'Where have you seen microservices help a team move faster — or quietly become the product?' — tied to the post's tension; no like/follow requests."},
+    {"text": "Three strategy-diverse titles, one recommended with reason", "passed": true, "evidence": "Why-question (recommended, with reason), number-led ('The 40% Infrastructure Tax...'), bold practical frame ('Before You Split the Monolith...')."},
+    {"text": "Working title in the writing plan", "passed": true, "evidence": "Plan opens with 'Working title: Most Teams Should Not Adopt Microservices'."},
+    {"text": "Concrete section subheadings", "passed": true, "evidence": "'The pattern is painfully repeatable', 'A modular monolith gets you most of the benefit', 'When microservices do make sense'."},
+    {"text": "No banned phrases; no invented details; fair counterpoint", "passed": true, "evidence": "Banned-phrase scan clean; 'When microservices do make sense' gives the three legitimate cases from notes fair treatment."}
+  ]
+}

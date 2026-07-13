@@ -1,0 +1,179 @@
+{
+  "metadata": {
+    "skill_name": "blog-editor",
+    "skill_path": "<path/to/skill>",
+    "executor_model": "<model-name>",
+    "analyzer_model": "<model-name>",
+    "timestamp": "2026-07-13T17:04:42Z",
+    "evals_run": [
+      0
+    ],
+    "runs_per_configuration": 3
+  },
+  "runs": [
+    {
+      "eval_id": 0,
+      "configuration": "old_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.5,
+        "passed": 4,
+        "failed": 4,
+        "total": 8,
+        "time_seconds": 132.0,
+        "tokens": 0,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Three title options, each using a visibly different strategy",
+          "passed": false,
+          "evidence": "Delivered 'Title + 2 alternates' per old skill; strategies not deliberately diversified or labeled (two of three are declarative statements)."
+        },
+        {
+          "text": "One title marked as recommended with a stated reason",
+          "passed": false,
+          "evidence": "Main title implied as pick but no reason given for choosing it over alternates."
+        },
+        {
+          "text": "Titles use trigger word OR number (not both crammed), avoid 'things'",
+          "passed": true,
+          "evidence": "'Our CI Got 3x Slower and Nobody Noticed' \u00e2\u20ac\u201d number only; no 'things'."
+        },
+        {
+          "text": "Titles avoid clickbait adjectives while making a concrete promise",
+          "passed": true,
+          "evidence": "No clickbait adjectives; honest framing. 'Your CI Pipeline Is Probably Slower Than You Think' is mildly assumptive but acceptable."
+        },
+        {
+          "text": "Writing plan includes a working title drafted before writing",
+          "passed": false,
+          "evidence": "Plan has hook/sections/takeaway/visuals but no title; title appears only at delivery."
+        },
+        {
+          "text": "Section subheadings carry a concrete point/promise, not generic labels",
+          "passed": true,
+          "evidence": "'The slow part was not sudden', 'The cache was basically gone' \u00e2\u20ac\u201d concrete (model did this unprompted)."
+        },
+        {
+          "text": "Story-first opening, ~1000-1400 words, no banned phrases",
+          "passed": true,
+          "evidence": "Opens with new hire's question; post body ~1,450 words (slightly over but close); no banned phrases found."
+        },
+        {
+          "text": "All facts trace to notes; gaps marked [FILL: ...]",
+          "passed": false,
+          "evidence": "Invented Node/npm specifics (package.json, npm ci) in code snippets presented as 'the important part looked like this before the refactor' \u00e2\u20ac\u201d flagged only later in editor's notes as representative; skill says never invent technical details."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 0,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 8,
+        "failed": 0,
+        "total": 8,
+        "time_seconds": 137.0,
+        "tokens": 0,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Three title options, each using a visibly different strategy",
+          "passed": true,
+          "evidence": "Three titles delivered: 'How a Dockerfile Reorder...' (how/trigger), 'Why Our Builds Took 40 Minutes Until a New Hire Asked One Question' (story/why), 'A 12-Minute Build Became a 40-Minute Build. We Had No Metric for Why.' (number-driven). Each labeled with its strategy."
+        },
+        {
+          "text": "One title marked as recommended with a stated reason",
+          "passed": true,
+          "evidence": "Title 1 marked '*recommended*. Clear, specific, and honest; it names the cause and the surprising outcome without clickbait.'"
+        },
+        {
+          "text": "Titles use trigger word OR number (not both crammed), avoid 'things'",
+          "passed": true,
+          "evidence": "No 'things'. Title 2 mixes 'Why' with '40 Minutes' (borderline vs the 'rarely both' guidance), but titles 1 and 3 follow the rule cleanly."
+        },
+        {
+          "text": "Titles avoid clickbait adjectives while making a concrete promise",
+          "passed": true,
+          "evidence": "No unbelievable/incredible/mind-blowing; promises (cause of 3x CI slowdown) delivered by the post."
+        },
+        {
+          "text": "Writing plan includes a working title drafted before writing",
+          "passed": true,
+          "evidence": "Phase 3 plan opens with 'Working title: How a Dockerfile Reorder Quietly Tripled Our CI Time'."
+        },
+        {
+          "text": "Section subheadings carry a concrete point/promise, not generic labels",
+          "passed": true,
+          "evidence": "'The question we should have asked months earlier', 'The fix was small; the guardrail mattered more' \u00e2\u20ac\u201d all concrete, no 'Background'/'The Problem'."
+        },
+        {
+          "text": "Story-first opening, ~1000-1400 words, no banned phrases",
+          "passed": true,
+          "evidence": "Opens with new hire's question; agent-verified 1,399 words; banned-phrase scan clean."
+        },
+        {
+          "text": "All facts trace to notes; gaps marked [FILL: ...]",
+          "passed": true,
+          "evidence": "40/12 min, 3x, 6 months, COPY reorder, cache metric all from notes; stack-specific commands left as [FILL: ...] rather than invented."
+        }
+      ],
+      "notes": []
+    }
+  ],
+  "run_summary": {
+    "old_skill": {
+      "pass_rate": {
+        "mean": 0.5,
+        "stddev": 0.0,
+        "min": 0.5,
+        "max": 0.5
+      },
+      "time_seconds": {
+        "mean": 132.0,
+        "stddev": 0.0,
+        "min": 132.0,
+        "max": 132.0
+      },
+      "tokens": {
+        "mean": 0.0,
+        "stddev": 0.0,
+        "min": 0,
+        "max": 0
+      }
+    },
+    "with_skill": {
+      "pass_rate": {
+        "mean": 1.0,
+        "stddev": 0.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "time_seconds": {
+        "mean": 137.0,
+        "stddev": 0.0,
+        "min": 137.0,
+        "max": 137.0
+      },
+      "tokens": {
+        "mean": 0.0,
+        "stddev": 0.0,
+        "min": 0,
+        "max": 0
+      }
+    },
+    "delta": {
+      "pass_rate": "-0.50",
+      "time_seconds": "-5.0",
+      "tokens": "+0"
+    }
+  },
+  "notes": []
+}

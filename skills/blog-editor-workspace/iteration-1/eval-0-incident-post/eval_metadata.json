@@ -1,0 +1,15 @@
+{
+  "eval_id": 0,
+  "eval_name": "incident-post-ci-cache",
+  "prompt": "Follow the blog-editor skill to write a technical blog post from my notes. I can't answer interview questions right now, so work through all the phases autonomously: make reasonable assumptions, self-approve the plan (show it), and use [FILL: ...] markers for anything missing. My idea + raw notes: 'Want to write about how our CI pipeline got 3x slower over 6 months and nobody noticed until a new hire asked why builds take 40 minutes. Root cause: our Docker layer cache hit rate had silently dropped to near zero because someone reordered the Dockerfile COPY commands in a refactor. Fixed it by moving dependency install before source copy and adding a cache-hit-rate metric to our dashboard. Builds went from 40 min back to 12 min. Lesson: slow degradation is invisible without metrics; humans normalize slowness. Audience: mid-level devs who own CI pipelines. Platform: dev.to.'",
+  "assertions": [
+    "Output includes three title options, each using a visibly different strategy (e.g., how/why question, number+takeaway, bold promise)",
+    "One title is marked as the recommended pick with a stated reason",
+    "Titles use a trigger word (how/why/what/when) OR a number, not both crammed together, and avoid the word 'things'",
+    "Titles avoid clickbait adjectives (unbelievable, incredible, mind-blowing) while still making a concrete promise the post delivers",
+    "The writing plan includes a working title drafted before the post was written",
+    "Section subheadings carry a concrete point or promise rather than generic labels like 'Background' or 'The Problem'",
+    "Post opens with the story/incident (no throat-clearing), stays roughly 1000-1400 words, and contains no banned phrases (In this article, Let's dive in, In conclusion, delve, moreover)",
+    "All facts trace to the provided notes (40 min, 12 min, 3x, 6 months, Docker COPY reorder, cache-hit metric); nothing invented, gaps marked [FILL: ...]"
+  ]
+}

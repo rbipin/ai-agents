@@ -1,0 +1,15 @@
+{
+  "eval_id": 1,
+  "eval_name": "opinion-post-microservices",
+  "prompt": "Opinion piece: most teams should NOT adopt microservices. After consulting for a dozen mid-size companies over 5 years, I've seen maybe 2 that actually needed them. Common pattern: 8-person team, one product, splits into 15 services, then spends 40% of engineering time on infra plumbing instead of features. Monolith with good module boundaries gets you 90% of the benefit. Real reasons teams adopt: resume-driven development and conference-talk envy. When they DO make sense: independent scaling, 20+ engineers in separate teams, compliance domains. Audience: engineering leads at mid-size companies. Platform: dev.to.",
+  "assertions": [
+    "Opening uses a provocative question or bold claim (appropriate for an opinion piece with no incident story) and does not bury the lede",
+    "Every major claim is backed by a number, example, or outcome from the notes (dozen companies, 5 years, ~2 that needed them, 8-person/15-service pattern, 40% plumbing time, 90% benefit); unbackable claims marked [FILL] or cut",
+    "Ending includes a concrete next action the reader can take, not just a takeaway or recap",
+    "Post closes with a genuine engagement question tied to the post's tension (dev.to is comment-driven), without begging for likes/follows",
+    "Three title options using visibly different strategies, one marked recommended with a reason",
+    "Working title appears in the writing plan before the post",
+    "Section subheadings carry concrete points, not generic labels",
+    "No banned phrases; no invented case-study details beyond the notes; fair treatment of the 'when microservices DO make sense' counterpoint"
+  ]
+}

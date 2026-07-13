@@ -1,0 +1,179 @@
+{
+  "metadata": {
+    "skill_name": "blog-editor",
+    "skill_path": "<path/to/skill>",
+    "executor_model": "<model-name>",
+    "analyzer_model": "<model-name>",
+    "timestamp": "2026-07-13T18:16:12Z",
+    "evals_run": [
+      1
+    ],
+    "runs_per_configuration": 3
+  },
+  "runs": [
+    {
+      "eval_id": 1,
+      "configuration": "old_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.625,
+        "passed": 5,
+        "failed": 3,
+        "total": 8,
+        "time_seconds": 1230.0,
+        "tokens": 0,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Opening uses a provocative question or bold claim; doesn't bury the lede",
+          "passed": true,
+          "evidence": "Strong pattern-based lede ('The first warning sign is usually not latency... It is a calendar.') \u00e2\u20ac\u201d engaging and not buried, though achieved without explicit skill guidance."
+        },
+        {
+          "text": "Major claims backed by numbers/examples from notes; unbackable claims [FILL] or cut",
+          "passed": true,
+          "evidence": "All note numbers used (dozen, 5 years, ~2, 8/15, 40%, 20+); [FILL] markers for measurement method and anonymized examples."
+        },
+        {
+          "text": "Ending includes a concrete next action",
+          "passed": true,
+          "evidence": "Question checklist before splitting + 'Start there.' \u00e2\u20ac\u201d actionable, though less specific than a this-week action."
+        },
+        {
+          "text": "Closes with genuine engagement question, no like-begging",
+          "passed": false,
+          "evidence": "No engagement question anywhere; post ends on the tribute-band quip. Old skill has no CTA guidance."
+        },
+        {
+          "text": "Three strategy-diverse titles, one recommended with reason",
+          "passed": false,
+          "evidence": "Title + 2 alternates format; no strategies labeled, no recommendation reason given."
+        },
+        {
+          "text": "Working title in the writing plan",
+          "passed": false,
+          "evidence": "Plan contains hook/sections/takeaway/visuals but no title; title appears only after the plan."
+        },
+        {
+          "text": "Concrete section subheadings",
+          "passed": true,
+          "evidence": "'The 40% infrastructure tax', 'The unflattering reasons teams choose them' \u00e2\u20ac\u201d concrete."
+        },
+        {
+          "text": "No banned phrases; no invented details; fair counterpoint",
+          "passed": true,
+          "evidence": "Clean scan; 'When microservices make sense' section covers the three legitimate cases; decision flowchart is derived from notes, not invented facts."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 1,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 8,
+        "failed": 0,
+        "total": 8,
+        "time_seconds": 96.0,
+        "tokens": 0,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Opening uses a provocative question or bold claim; doesn't bury the lede",
+          "passed": true,
+          "evidence": "Opens with the thesis as a bold one-line claim: 'Most teams should not adopt microservices.' Lede delivered in sentence one."
+        },
+        {
+          "text": "Major claims backed by numbers/examples from notes; unbackable claims [FILL] or cut",
+          "passed": true,
+          "evidence": "Dozen companies/5 years/~2 needed, 8-person/15-service pattern, 40% plumbing, 90% benefit, 20+ engineer threshold all used; anonymized example left as [FILL]; 40% hedged as 'one common pattern from my consulting work'."
+        },
+        {
+          "text": "Ending includes a concrete next action",
+          "passed": true,
+          "evidence": "'This week, pick one area of your monolith that people are afraid to touch. Draw its real dependencies. Choose one boundary to enforce in code...'"
+        },
+        {
+          "text": "Closes with genuine engagement question, no like-begging",
+          "passed": true,
+          "evidence": "'Where have you seen microservices help a team move faster \u00e2\u20ac\u201d or quietly become the product?' \u00e2\u20ac\u201d tied to the post's tension; no like/follow requests."
+        },
+        {
+          "text": "Three strategy-diverse titles, one recommended with reason",
+          "passed": true,
+          "evidence": "Why-question (recommended, with reason), number-led ('The 40% Infrastructure Tax...'), bold practical frame ('Before You Split the Monolith...')."
+        },
+        {
+          "text": "Working title in the writing plan",
+          "passed": true,
+          "evidence": "Plan opens with 'Working title: Most Teams Should Not Adopt Microservices'."
+        },
+        {
+          "text": "Concrete section subheadings",
+          "passed": true,
+          "evidence": "'The pattern is painfully repeatable', 'A modular monolith gets you most of the benefit', 'When microservices do make sense'."
+        },
+        {
+          "text": "No banned phrases; no invented details; fair counterpoint",
+          "passed": true,
+          "evidence": "Banned-phrase scan clean; 'When microservices do make sense' gives the three legitimate cases from notes fair treatment."
+        }
+      ],
+      "notes": []
+    }
+  ],
+  "run_summary": {
+    "old_skill": {
+      "pass_rate": {
+        "mean": 0.625,
+        "stddev": 0.0,
+        "min": 0.625,
+        "max": 0.625
+      },
+      "time_seconds": {
+        "mean": 1230.0,
+        "stddev": 0.0,
+        "min": 1230.0,
+        "max": 1230.0
+      },
+      "tokens": {
+        "mean": 0.0,
+        "stddev": 0.0,
+        "min": 0,
+        "max": 0
+      }
+    },
+    "with_skill": {
+      "pass_rate": {
+        "mean": 1.0,
+        "stddev": 0.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "time_seconds": {
+        "mean": 96.0,
+        "stddev": 0.0,
+        "min": 96.0,
+        "max": 96.0
+      },
+      "tokens": {
+        "mean": 0.0,
+        "stddev": 0.0,
+        "min": 0,
+        "max": 0
+      }
+    },
+    "delta": {
+      "pass_rate": "-0.38",
+      "time_seconds": "+1134.0",
+      "tokens": "+0"
+    }
+  },
+  "notes": []
+}

@@ -1,0 +1,296 @@
+{
+  "metadata": {
+    "skill_name": "blog-editor",
+    "skill_path": "<path/to/skill>",
+    "executor_model": "<model-name>",
+    "analyzer_model": "<model-name>",
+    "timestamp": "2026-07-13T19:15:37Z",
+    "evals_run": [
+      2,
+      3
+    ],
+    "runs_per_configuration": 3
+  },
+  "runs": [
+    {
+      "eval_id": 2,
+      "configuration": "old_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.25,
+        "passed": 2,
+        "failed": 6,
+        "total": 8,
+        "time_seconds": 145.0,
+        "tokens": 0,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Identifies TIL archetype",
+          "passed": false,
+          "evidence": "No archetype concept in old skill; treated as a standard war-story post."
+        },
+        {
+          "text": "Body ~300-600 words (TIL exception)",
+          "passed": false,
+          "evidence": "Measured 1,136 words \u00e2\u20ac\u201d nearly double the TIL budget, driven by the old skill's 1000-1400 word target."
+        },
+        {
+          "text": "Quick, humble, generous tone; one nugget, no ceremony",
+          "passed": false,
+          "evidence": "Padded with a second full script variant (trap/cleanup/pipefail), a 'full flow' section, and extended reflection \u00e2\u20ac\u201d a deep-dive tutorial, not a TIL."
+        },
+        {
+          "text": "Facts traceable; gaps [FILL]",
+          "passed": true,
+          "evidence": "All note facts used; six [FILL] markers for project specifics."
+        },
+        {
+          "text": "Fresh-eyes review evidence",
+          "passed": false,
+          "evidence": "No review pass mentioned; old skill has no Phase 5 review."
+        },
+        {
+          "text": "Next action + engagement question",
+          "passed": false,
+          "evidence": "Has a personal-habit takeaway but no reader-directed action and no engagement question despite dev.to target."
+        },
+        {
+          "text": "Three strategy-diverse titles with reasoned pick; working title in plan",
+          "passed": false,
+          "evidence": "Title + 2 alternates, no strategies or recommendation reason; plan has no working title."
+        },
+        {
+          "text": "No banned phrases or AI-tells",
+          "passed": true,
+          "evidence": "Agent-verified clean scan."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 3,
+      "configuration": "old_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.5,
+        "passed": 4,
+        "failed": 4,
+        "total": 8,
+        "time_seconds": 137.0,
+        "tokens": 0,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Identifies showcase/plug archetype",
+          "passed": false,
+          "evidence": "No archetype concept in old skill."
+        },
+        {
+          "text": "Leads with reader's problem, not features; doesn't read like an ad",
+          "passed": true,
+          "evidence": "Opens with the REDIS_URL incident before introducing the tool \u00e2\u20ac\u201d model did this well unprompted."
+        },
+        {
+          "text": "Limitations stated openly in the body",
+          "passed": true,
+          "evidence": "'.env and JSON only... YAML support is not there yet, which I know will be a dealbreaker for some teams. Secret scanning is also basic regex' \u00e2\u20ac\u201d stated plainly."
+        },
+        {
+          "text": "Facts traceable; gaps [FILL]",
+          "passed": true,
+          "evidence": "All note facts used; five [FILL] markers for repo URL, commands, CI examples."
+        },
+        {
+          "text": "Fresh-eyes review evidence",
+          "passed": false,
+          "evidence": "No review pass; old skill has no Phase 5 review."
+        },
+        {
+          "text": "Next action + engagement question, no star-begging",
+          "passed": false,
+          "evidence": "'Run a diff before prod does it for you' is a decent next action and there's no star-begging, but no engagement question despite the dev.to target."
+        },
+        {
+          "text": "Three strategy-diverse titles with reasoned pick; working title in plan",
+          "passed": false,
+          "evidence": "'Recommended title' given without a reason; no strategy labels; no working title in the plan."
+        },
+        {
+          "text": "No banned phrases; honest enthusiasm",
+          "passed": true,
+          "evidence": "Agent-verified clean; honest tone throughout."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 2,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 8,
+        "failed": 0,
+        "total": 8,
+        "time_seconds": 137.0,
+        "tokens": 0,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Identifies TIL archetype",
+          "passed": true,
+          "evidence": "Phase 1: 'Archetype: TIL, with a light incident/war-story opening' \u00e2\u20ac\u201d blend explicitly named."
+        },
+        {
+          "text": "Body ~300-600 words (TIL exception)",
+          "passed": true,
+          "evidence": "Measured 572 words \u00e2\u20ac\u201d inside the TIL budget."
+        },
+        {
+          "text": "Quick, humble, generous tone; one nugget, no ceremony",
+          "passed": true,
+          "evidence": "Single trick (exit-code contract), minimal script, self-deprecating without padding ('I had determination. What I did not have was awareness of git bisect run.')."
+        },
+        {
+          "text": "Facts traceable; gaps [FILL]",
+          "passed": true,
+          "evidence": "3 hours, ~200 commits, 4 min, 8 steps, exit 0/non-zero, curl health check all from notes; build command and endpoint left as [FILL]."
+        },
+        {
+          "text": "Fresh-eyes review evidence",
+          "passed": true,
+          "evidence": "'Fresh-eyes review summary' section covering all four dimensions plus 'Reviewer flags' with judgment calls surfaced for the user."
+        },
+        {
+          "text": "Next action + engagement question",
+          "passed": true,
+          "evidence": "'Can I write a tiny script that says good or bad?' habit + 'What is the most useful tiny Git command you learned embarrassingly late?'"
+        },
+        {
+          "text": "Three strategy-diverse titles with reasoned pick; working title in plan",
+          "passed": true,
+          "evidence": "TIL promise (recommended, with reason), how+before/after, numbers+contrast; working title in Phase 3."
+        },
+        {
+          "text": "No banned phrases or AI-tells",
+          "passed": true,
+          "evidence": "Clean scan; varied paragraph rhythm."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 3,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 8,
+        "failed": 0,
+        "total": 8,
+        "time_seconds": 257.0,
+        "tokens": 0,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Identifies showcase/plug archetype",
+          "passed": true,
+          "evidence": "Phase 1: 'a credible Showcase / plug with a war-story spine' \u00e2\u20ac\u201d blend named."
+        },
+        {
+          "text": "Leads with reader's problem, not features; doesn't read like an ad",
+          "passed": true,
+          "evidence": "Opens with the REDIS_URL incident; tool introduced only after the pain is established; explicitly disclaims 'I do not want anyone treating a small weekend CLI as a replacement for secret scanning'."
+        },
+        {
+          "text": "Limitations stated openly in the body",
+          "passed": true,
+          "evidence": "Dedicated 'Small on purpose, honest about limits' section with a support table listing .env/JSON only, no YAML, basic regex secrets scanning \u00e2\u20ac\u201d plus 'developer tools earn trust by being clear about their edges'."
+        },
+        {
+          "text": "Facts traceable; gaps [FILL]",
+          "passed": true,
+          "evidence": "800 lines Go, single binary, no deps, 340 stars/2 months, REDIS_URL incident all from notes; repo URL, install command, example commands left as [FILL] rather than invented CLI syntax."
+        },
+        {
+          "text": "Fresh-eyes review evidence",
+          "passed": true,
+          "evidence": "'Phase 5 fresh-eyes review summary' plus 'Reviewer flags needing user judgment' (e.g., clarify 'no deps' wording, add real CLI output)."
+        },
+        {
+          "text": "Next action + engagement question, no star-begging",
+          "passed": true,
+          "evidence": "'give envdiff a try against one service this week... Pick one app.' + 'What kind of environment drift has bitten your team...?'; asks for contributions, never stars."
+        },
+        {
+          "text": "Three strategy-diverse titles with reasoned pick; working title in plan",
+          "passed": true,
+          "evidence": "Why-trigger (recommended, with reason), number+incident, how+utility; working title in the plan."
+        },
+        {
+          "text": "No banned phrases; honest enthusiasm",
+          "passed": true,
+          "evidence": "Clean scan; enthusiasm present ('exciting and a little suspicious') with honest scope claims."
+        }
+      ],
+      "notes": []
+    }
+  ],
+  "run_summary": {
+    "old_skill": {
+      "pass_rate": {
+        "mean": 0.375,
+        "stddev": 0.1768,
+        "min": 0.25,
+        "max": 0.5
+      },
+      "time_seconds": {
+        "mean": 141.0,
+        "stddev": 5.6569,
+        "min": 137.0,
+        "max": 145.0
+      },
+      "tokens": {
+        "mean": 0.0,
+        "stddev": 0.0,
+        "min": 0,
+        "max": 0
+      }
+    },
+    "with_skill": {
+      "pass_rate": {
+        "mean": 1.0,
+        "stddev": 0.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "time_seconds": {
+        "mean": 197.0,
+        "stddev": 84.8528,
+        "min": 137.0,
+        "max": 257.0
+      },
+      "tokens": {
+        "mean": 0.0,
+        "stddev": 0.0,
+        "min": 0,
+        "max": 0
+      }
+    },
+    "delta": {
+      "pass_rate": "-0.62",
+      "time_seconds": "-56.0",
+      "tokens": "+0"
+    }
+  },
+  "notes": []
+}

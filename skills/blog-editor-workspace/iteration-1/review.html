@@ -1,0 +1,1325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eval Review</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&family=Lora:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js" integrity="sha384-EnyY0/GSHQGSxSgMwaIPzSESbqoOLSexfnSMN2AP+39Ckmn92stwABZynq1JyzdT" crossorigin="anonymous"></script>
+  <style>
+    :root {
+      --bg: #faf9f5;
+      --surface: #ffffff;
+      --border: #e8e6dc;
+      --text: #141413;
+      --text-muted: #b0aea5;
+      --accent: #d97757;
+      --accent-hover: #c4613f;
+      --green: #788c5d;
+      --green-bg: #eef2e8;
+      --red: #c44;
+      --red-bg: #fceaea;
+      --header-bg: #141413;
+      --header-text: #faf9f5;
+      --radius: 6px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Lora', Georgia, serif;
+      background: var(--bg);
+      color: var(--text);
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ---- Header ---- */
+    .header {
+      background: var(--header-bg);
+      color: var(--header-text);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    .header h1 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+    .header .instructions {
+      font-size: 0.8rem;
+      opacity: 0.7;
+      margin-top: 0.25rem;
+    }
+    .header .progress {
+      font-size: 0.875rem;
+      opacity: 0.8;
+      text-align: right;
+    }
+
+    /* ---- Main content ---- */
+    .main {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1.5rem 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    /* ---- Sections ---- */
+    .section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      flex-shrink: 0;
+    }
+    .section-header {
+      font-family: 'Poppins', sans-serif;
+      padding: 0.75rem 1rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border);
+      background: var(--bg);
+    }
+    .section-body {
+      padding: 1rem;
+    }
+
+    /* ---- Config badge ---- */
+    .config-badge {
+      display: inline-block;
+      padding: 0.2rem 0.625rem;
+      border-radius: 9999px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.6875rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      margin-left: 0.75rem;
+      vertical-align: middle;
+    }
+    .config-badge.config-primary {
+      background: rgba(33, 150, 243, 0.12);
+      color: #1976d2;
+    }
+    .config-badge.config-baseline {
+      background: rgba(255, 193, 7, 0.15);
+      color: #f57f17;
+    }
+
+    /* ---- Prompt ---- */
+    .prompt-text {
+      white-space: pre-wrap;
+      font-size: 0.9375rem;
+      line-height: 1.6;
+    }
+
+    /* ---- Outputs ---- */
+    .output-file {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .output-file + .output-file {
+      margin-top: 1rem;
+    }
+    .output-file-header {
+      padding: 0.5rem 0.75rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      font-family: 'SF Mono', SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .output-file-header .dl-btn {
+      font-size: 0.7rem;
+      color: var(--accent);
+      text-decoration: none;
+      cursor: pointer;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-weight: 500;
+      opacity: 0.8;
+    }
+    .output-file-header .dl-btn:hover {
+      opacity: 1;
+      text-decoration: underline;
+    }
+    .output-file-content {
+      padding: 0.75rem;
+      overflow-x: auto;
+    }
+    .output-file-content pre {
+      font-size: 0.8125rem;
+      line-height: 1.5;
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: 'SF Mono', SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;
+    }
+    .output-file-content img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 4px;
+    }
+    .output-file-content iframe {
+      width: 100%;
+      height: 600px;
+      border: none;
+    }
+    .output-file-content table {
+      border-collapse: collapse;
+      font-size: 0.8125rem;
+      width: 100%;
+    }
+    .output-file-content table td,
+    .output-file-content table th {
+      border: 1px solid var(--border);
+      padding: 0.375rem 0.5rem;
+      text-align: left;
+    }
+    .output-file-content table th {
+      background: var(--bg);
+      font-weight: 600;
+    }
+    .output-file-content .download-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 0.875rem;
+      cursor: pointer;
+    }
+    .output-file-content .download-link:hover {
+      background: var(--border);
+    }
+    .empty-state {
+      color: var(--text-muted);
+      font-style: italic;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    /* ---- Feedback ---- */
+    .prev-feedback {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 0.625rem 0.75rem;
+      margin-top: 0.75rem;
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+    .prev-feedback-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.25rem;
+      color: var(--text-muted);
+    }
+    .feedback-textarea {
+      width: 100%;
+      min-height: 100px;
+      padding: 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-family: inherit;
+      font-size: 0.9375rem;
+      line-height: 1.5;
+      resize: vertical;
+      color: var(--text);
+    }
+    .feedback-textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+    .feedback-status {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 0.5rem;
+      min-height: 1.1em;
+    }
+
+    /* ---- Grades (collapsible) ---- */
+    .grades-toggle {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+    .grades-toggle:hover {
+      color: var(--accent);
+    }
+    .grades-toggle .arrow {
+      margin-right: 0.5rem;
+      transition: transform 0.15s;
+      font-size: 0.75rem;
+    }
+    .grades-toggle .arrow.open {
+      transform: rotate(90deg);
+    }
+    .grades-content {
+      display: none;
+      margin-top: 0.75rem;
+    }
+    .grades-content.open {
+      display: block;
+    }
+    .grades-summary {
+      font-size: 0.875rem;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .grade-badge {
+      display: inline-block;
+      padding: 0.125rem 0.5rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .grade-pass { background: var(--green-bg); color: var(--green); }
+    .grade-fail { background: var(--red-bg); color: var(--red); }
+    .assertion-list {
+      list-style: none;
+    }
+    .assertion-item {
+      padding: 0.625rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.8125rem;
+    }
+    .assertion-item:last-child { border-bottom: none; }
+    .assertion-status {
+      font-weight: 600;
+      margin-right: 0.5rem;
+    }
+    .assertion-status.pass { color: var(--green); }
+    .assertion-status.fail { color: var(--red); }
+    .assertion-evidence {
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      margin-top: 0.25rem;
+      padding-left: 1.5rem;
+    }
+
+    /* ---- View tabs ---- */
+    .view-tabs {
+      display: flex;
+      gap: 0;
+      padding: 0 2rem;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .view-tab {
+      font-family: 'Poppins', sans-serif;
+      padding: 0.625rem 1.25rem;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      cursor: pointer;
+      border: none;
+      background: none;
+      color: var(--text-muted);
+      border-bottom: 2px solid transparent;
+      transition: all 0.15s;
+    }
+    .view-tab:hover { color: var(--text); }
+    .view-tab.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+    .view-panel { display: none; }
+    .view-panel.active { display: flex; flex-direction: column; flex: 1; overflow: hidden; }
+
+    /* ---- Benchmark view ---- */
+    .benchmark-view {
+      padding: 1.5rem 2rem;
+      overflow-y: auto;
+      flex: 1;
+    }
+    .benchmark-table {
+      border-collapse: collapse;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      font-size: 0.8125rem;
+      width: 100%;
+      margin-bottom: 1.5rem;
+    }
+    .benchmark-table th, .benchmark-table td {
+      padding: 0.625rem 0.75rem;
+      text-align: left;
+      border: 1px solid var(--border);
+    }
+    .benchmark-table th {
+      font-family: 'Poppins', sans-serif;
+      background: var(--header-bg);
+      color: var(--header-text);
+      font-weight: 500;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .benchmark-table tr:hover { background: var(--bg); }
+    .benchmark-table tr.benchmark-row-with { background: rgba(33, 150, 243, 0.06); }
+    .benchmark-table tr.benchmark-row-without { background: rgba(255, 193, 7, 0.06); }
+    .benchmark-table tr.benchmark-row-with:hover { background: rgba(33, 150, 243, 0.12); }
+    .benchmark-table tr.benchmark-row-without:hover { background: rgba(255, 193, 7, 0.12); }
+    .benchmark-table tr.benchmark-row-avg { font-weight: 600; border-top: 2px solid var(--border); }
+    .benchmark-table tr.benchmark-row-avg.benchmark-row-with { background: rgba(33, 150, 243, 0.12); }
+    .benchmark-table tr.benchmark-row-avg.benchmark-row-without { background: rgba(255, 193, 7, 0.12); }
+    .benchmark-delta-positive { color: var(--green); font-weight: 600; }
+    .benchmark-delta-negative { color: var(--red); font-weight: 600; }
+    .benchmark-notes {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem;
+    }
+    .benchmark-notes h3 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.875rem;
+      margin-bottom: 0.75rem;
+    }
+    .benchmark-notes ul {
+      list-style: disc;
+      padding-left: 1.25rem;
+    }
+    .benchmark-notes li {
+      font-size: 0.8125rem;
+      line-height: 1.6;
+      margin-bottom: 0.375rem;
+    }
+    .benchmark-empty {
+      color: var(--text-muted);
+      font-style: italic;
+      text-align: center;
+      padding: 3rem;
+    }
+
+    /* ---- Navigation ---- */
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+      flex-shrink: 0;
+    }
+    .nav-btn {
+      font-family: 'Poppins', sans-serif;
+      padding: 0.5rem 1.25rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
+      cursor: pointer;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text);
+      transition: all 0.15s;
+    }
+    .nav-btn:hover:not(:disabled) {
+      background: var(--bg);
+      border-color: var(--text-muted);
+    }
+    .nav-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+    .done-btn {
+      font-family: 'Poppins', sans-serif;
+      padding: 0.5rem 1.5rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
+      color: var(--text);
+      cursor: pointer;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: all 0.15s;
+    }
+    .done-btn:hover {
+      background: var(--bg);
+      border-color: var(--text-muted);
+    }
+    .done-btn.ready {
+      border: none;
+      background: var(--accent);
+      color: white;
+      font-weight: 600;
+    }
+    .done-btn.ready:hover {
+      background: var(--accent-hover);
+    }
+    /* ---- Done overlay ---- */
+    .done-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 100;
+      justify-content: center;
+      align-items: center;
+    }
+    .done-overlay.visible {
+      display: flex;
+    }
+    .done-card {
+      background: var(--surface);
+      border-radius: 12px;
+      padding: 2rem 3rem;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      max-width: 500px;
+    }
+    .done-card h2 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .done-card p {
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+      line-height: 1.5;
+    }
+    .done-card .btn-row {
+      display: flex;
+      gap: 0.5rem;
+      justify-content: center;
+    }
+    .done-card button {
+      padding: 0.5rem 1.25rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
+      cursor: pointer;
+      font-size: 0.875rem;
+    }
+    .done-card button:hover {
+      background: var(--bg);
+    }
+    /* ---- Toast ---- */
+    .toast {
+      position: fixed;
+      bottom: 5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--header-bg);
+      color: var(--header-text);
+      padding: 0.625rem 1.25rem;
+      border-radius: var(--radius);
+      font-size: 0.875rem;
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+      z-index: 200;
+    }
+    .toast.visible {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <div id="app" style="height:100vh; display:flex; flex-direction:column;">
+    <div class="header">
+      <div>
+        <h1>Eval Review: <span id="skill-name"></span></h1>
+        <div class="instructions">Review each output and leave feedback below. Navigate with arrow keys or buttons. When done, copy feedback and paste into Claude Code.</div>
+      </div>
+      <div class="progress" id="progress"></div>
+    </div>
+
+    <!-- View tabs (only shown when benchmark data exists) -->
+    <div class="view-tabs" id="view-tabs" style="display:none;">
+      <button class="view-tab active" onclick="switchView('outputs')">Outputs</button>
+      <button class="view-tab" onclick="switchView('benchmark')">Benchmark</button>
+    </div>
+
+    <!-- Outputs panel (qualitative review) -->
+    <div class="view-panel active" id="panel-outputs">
+    <div class="main">
+      <!-- Prompt -->
+      <div class="section">
+        <div class="section-header">Prompt <span class="config-badge" id="config-badge" style="display:none;"></span></div>
+        <div class="section-body">
+          <div class="prompt-text" id="prompt-text"></div>
+        </div>
+      </div>
+
+      <!-- Outputs -->
+      <div class="section">
+        <div class="section-header">Output</div>
+        <div class="section-body" id="outputs-body">
+          <div class="empty-state">No output files found</div>
+        </div>
+      </div>
+
+      <!-- Previous Output (collapsible) -->
+      <div class="section" id="prev-outputs-section" style="display:none;">
+        <div class="section-header">
+          <div class="grades-toggle" onclick="togglePrevOutputs()">
+            <span class="arrow" id="prev-outputs-arrow">&#9654;</span>
+            Previous Output
+          </div>
+        </div>
+        <div class="grades-content" id="prev-outputs-content"></div>
+      </div>
+
+      <!-- Grades (collapsible) -->
+      <div class="section" id="grades-section" style="display:none;">
+        <div class="section-header">
+          <div class="grades-toggle" onclick="toggleGrades()">
+            <span class="arrow" id="grades-arrow">&#9654;</span>
+            Formal Grades
+          </div>
+        </div>
+        <div class="grades-content" id="grades-content"></div>
+      </div>
+
+      <!-- Feedback -->
+      <div class="section">
+        <div class="section-header">Your Feedback</div>
+        <div class="section-body">
+          <textarea
+            class="feedback-textarea"
+            id="feedback"
+            placeholder="What do you think of this output? Any issues, suggestions, or things that look great?"
+          ></textarea>
+          <div class="feedback-status" id="feedback-status"></div>
+          <div class="prev-feedback" id="prev-feedback" style="display:none;">
+            <div class="prev-feedback-label">Previous feedback</div>
+            <div id="prev-feedback-text"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav" id="outputs-nav">
+      <button class="nav-btn" id="prev-btn" onclick="navigate(-1)">&#8592; Previous</button>
+      <button class="done-btn" id="done-btn" onclick="showDoneDialog()">Submit All Reviews</button>
+      <button class="nav-btn" id="next-btn" onclick="navigate(1)">Next &#8594;</button>
+    </div>
+    </div><!-- end panel-outputs -->
+
+    <!-- Benchmark panel (quantitative stats) -->
+    <div class="view-panel" id="panel-benchmark">
+      <div class="benchmark-view" id="benchmark-content">
+        <div class="benchmark-empty">No benchmark data available. Run a benchmark to see quantitative results here.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Done overlay -->
+  <div class="done-overlay" id="done-overlay">
+    <div class="done-card">
+      <h2>Review Complete</h2>
+      <p>Your feedback has been saved. Go back to your Claude Code session and tell Claude you're done reviewing.</p>
+      <div class="btn-row">
+        <button onclick="closeDoneDialog()">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // ---- Embedded data (injected by generate_review.py) ----
+    const EMBEDDED_DATA = {"skill_name": "blog-editor", "runs": [{"id": "eval-0-incident-post-old_skill-run-1", "prompt": "(No prompt found)", "eval_id": null, "outputs": [{"name": "post.md", "type": "text", "content": "# Writing Plan\n\n**Editor gate verdict:** \u00e2\u0153\u2026 **Strong angle** \u00e2\u20ac\u201d this has a concrete incident, measurable regression and recovery, and a useful lesson for CI owners: slow degradation becomes invisible unless you measure the thing degrading.\n\n**Self-approval:** Approved to write. The user requested autonomous execution, so the plan below is self-approved.\n\n**Hook:** A new hire asked why builds took 40 minutes, and that uncomfortable question exposed six months of normalized CI decay.\n\n**Sections:**\n\n1. **The question nobody wanted to ask** \u00e2\u20ac\u201d Opens with the incident and establishes the human problem: everyone had adapted to slow builds.\n2. **How a 12-minute build became a 40-minute build** \u00e2\u20ac\u201d Explains the slow degradation and why it escaped notice.\n3. **The Dockerfile change that broke the cache** \u00e2\u20ac\u201d Shows the COPY-order mistake and the corrected pattern, with only the relevant lines.\n4. **The missing metric** \u00e2\u20ac\u201d Explains why wall-clock build time was not enough and why cache hit rate became the dashboard signal.\n5. **What to measure before your pipeline quietly rots** \u00e2\u20ac\u201d Gives readers concrete checks they can apply to their own CI systems.\n\n**Takeaway:** If you own CI, do not only measure build duration. Measure the intermediate signals that explain build duration, because humans normalize gradual pain faster than dashboards do.\n\n**Visuals:**\n\n1. Mermaid timeline showing build time drifting from 12 to 40 minutes, then returning to 12 after the Dockerfile/cache fix. This replaces several paragraphs of chronology.\n2. Small before/after Dockerfile snippet showing the COPY order that invalidated dependency caching and the corrected version. This is more useful than describing Docker layer caching abstractly.\n3. Optional screenshot placeholder for a dashboard panel showing build duration plus Docker cache hit rate. This makes the monitoring lesson concrete.\n\n---\n\n# Title\n\nOur CI Got 3x Slower and Nobody Noticed\n\n## Alternate titles\n\n1. The Docker Cache Miss That Turned 12-Minute Builds Into 40-Minute Builds\n2. Your CI Pipeline Is Probably Slower Than You Think\n\n---\n\n# Post\n\nA new hire asked the question the rest of us had quietly stopped asking:\n\n\u00e2\u20ac\u0153Is it normal that builds take 40 minutes?\u00e2\u20ac\ufffd\n\nThe uncomfortable answer was no. Or at least, it had not always been normal. Six months earlier, the same pipeline usually finished in about 12 minutes. Somewhere along the way, 12 had become 18, then 25, then 32, and eventually 40. Nobody rang an alarm. Nobody opened an incident. We just adjusted our habits around it.\n\nStart a build, get coffee. Start a build, answer Slack. Start a build, reconsider every architectural decision since 2019.\n\nThe fix was not a bigger runner, a new CI provider, or a heroic rewrite of the pipeline. The root cause was much smaller and much more annoying: our Docker layer cache hit rate had silently dropped to near zero after a Dockerfile refactor changed the order of `COPY` commands.\n\nOnce we put the dependency install step back before the source copy, builds went from roughly 40 minutes back to 12.\n\nThe lesson was not \u00e2\u20ac\u0153Docker cache good.\u00e2\u20ac\ufffd We already knew that. The lesson was that slow degradation is almost invisible unless you measure the thing that is degrading.\n\n## The slow part was not sudden\n\nIf a build jumps from 12 minutes to 40 minutes overnight, people notice. Someone complains in chat. Someone assumes the CI provider is on fire. Someone says the phrase \u00e2\u20ac\u0153quick rollback,\u00e2\u20ac\ufffd usually while not feeling quick at all.\n\nThat is not what happened here.\n\nOur build got slower gradually over about six months. Each week felt only a little worse than the week before. The pipeline still passed. Deploys still happened. Pull requests still merged. Nothing was obviously broken.\n\nThat made it easy to explain away. A few more tests had been added. The app had grown. Maybe it was just \u00e2\u20ac\u0153one of those things.\u00e2\u20ac\ufffd\n\nThis is how performance regressions sneak into internal tooling. They do not always arrive as a dramatic failure. Sometimes they arrive as a new baseline.\n\n[IMAGE: Timeline chart showing CI build duration drifting from 12 minutes to 40 minutes over six months, then dropping back to 12 minutes after the Dockerfile cache fix.]\n\n```mermaid\nxychart-beta\n    title \"CI build duration over time\"\n    x-axis [\"Month 0\", \"Month 1\", \"Month 2\", \"Month 3\", \"Month 4\", \"Month 5\", \"Month 6\", \"After fix\"]\n    y-axis \"Minutes\" 0 --> 45\n    line [12, 16, 21, 27, 32, 36, 40, 12]\n```\n\n## The cache was basically gone\n\nThe pipeline built a Docker image as part of CI. Like most Docker-based builds, it relied on layer caching to avoid reinstalling dependencies from scratch every time.\n\nThe important part looked conceptually like this before the refactor:\n\n```dockerfile\nCOPY package.json package-lock.json ./\nRUN npm ci\n\nCOPY . .\nRUN npm run build\n```\n\nThat structure matters. Docker can reuse the `npm ci` layer as long as the dependency files have not changed. Source changes do not invalidate the dependency install layer, so most builds skip the expensive install step.\n\nDuring a cleanup, the Dockerfile was reordered to look more like this:\n\n```dockerfile\nCOPY . .\nRUN npm ci\nRUN npm run build\n```\n\nThat reads cleanly. It is also a cache trap.\n\nWith `COPY . .` before `npm ci`, almost any source change invalidates the layer before dependency installation. Change an application file, a test, a README, or anything else included in the build context, and Docker has to rerun the dependency install.\n\nThe Dockerfile still worked. The image still built. The tests still ran. The only thing that changed was that the most expensive layer became much harder to reuse.\n\nThat is the worst kind of CI regression: technically correct, operationally painful.\n\nThe fix was to restore the dependency-first ordering:\n\n```dockerfile\nCOPY package.json package-lock.json ./\nRUN npm ci\n\nCOPY . .\nRUN npm run build\n```\n\nIn your stack, the files may be different: `requirements.txt`, `poetry.lock`, `go.mod`, `pom.xml`, `Gemfile.lock`, or something else. The principle is the same.\n\nCopy the files that define dependencies first. Install dependencies. Then copy the rest of the source.\n\nYou want your dependency layer to change only when dependencies change.\n\n## Build time told us something was wrong, but too late\n\nWe had build duration on a dashboard. That sounds like enough. It was not.\n\nBuild duration is a symptom. It tells you that users are waiting longer, but it does not always tell you why. By the time the number is embarrassing enough to trigger action, the team may already have normalized the pain.\n\nWhat we did not have was a metric for Docker layer cache hit rate.\n\nOnce we looked at cache behavior, the problem was obvious. The cache was missing constantly, which meant the pipeline was repeatedly paying for work it should have reused.\n\nAfter the fix, we added cache hit rate beside build duration on the CI dashboard. The goal was not to make the dashboard prettier. The goal was to catch the next regression while it was still a small weird dip, not six months of wasted minutes hiding in plain sight.\n\n[IMAGE: Dashboard screenshot placeholder showing two panels side by side: CI build duration in minutes and Docker layer cache hit rate percentage, with an annotation at the Dockerfile fix.]\n\nA useful CI dashboard should answer two questions:\n\n1. Are developers waiting longer?\n2. Which reusable parts of the pipeline stopped being reusable?\n\nThe second question is where the real diagnosis usually starts.\n\n## Humans normalize slowness quickly\n\nThe strangest part of this incident was not the Dockerfile mistake. People make refactors that accidentally hurt caching all the time.\n\nThe strange part was how easily the team adapted.\n\nA 40-minute build should have felt absurd. Instead, it became background radiation. People changed their behavior around the pipeline rather than questioning the pipeline itself.\n\nThat is not a team failure. That is a human failure mode.\n\nWhen something gets 5% slower at a time, your brain updates its definition of normal. You stop comparing today to six months ago. You compare today to yesterday, and yesterday was only slightly less annoying.\n\nMetrics are useful because they do not have that problem. A chart can remember that your build used to take 12 minutes even after everyone else has emotionally accepted 40.\n\n## What I would measure now\n\nIf you own a CI pipeline, build duration is only the starting point. Keep it, but do not stop there.\n\nI would track the signals that explain build duration:\n\n| Area | Metric to watch | Why it matters |\n| --- | --- | --- |\n| Docker builds | Layer cache hit rate | Catches dependency reinstall and rebuild regressions |\n| Dependencies | Install step duration | Shows when package installation becomes the bottleneck |\n| Tests | Test runtime by suite | Separates slow tests from slow builds |\n| Queueing | Time waiting for a runner | Distinguishes CI capacity problems from pipeline problems |\n| Artifacts | Upload/download duration | Exposes hidden time spent moving files around |\n\nYou do not need a perfect observability setup to start. Even a small dashboard with build duration, dependency install duration, and cache hit rate would have caught our issue earlier.\n\nMeasure the expensive assumptions in your pipeline.\n\nIf your build assumes Docker caching works, measure whether Docker caching works. If your build assumes dependency installation is cheap because it is cached, measure whether it is actually cached. If your build assumes parallel test jobs are balanced, measure whether one job is quietly doing most of the work.\n\nCI pipelines are full of these assumptions. They are fine until they silently stop being true.\n\n## The practical takeaway\n\nThe Dockerfile bug was easy to fix. Seeing it was the hard part.\n\nA new hire noticed because they had not been slowly trained to accept the delay. They had fresh eyes and one very reasonable question: why does this take so long?\n\nYour dashboard should be able to ask that question before a person has to.\n\nPick one slow CI job this week. Look at its duration over the last few months. Then pick one underlying mechanism it depends on \u00e2\u20ac\u201d Docker cache, dependency cache, test splitting, runner availability, artifact transfer \u00e2\u20ac\u201d and add a metric for that.\n\nDo not wait for the build to become obviously broken. By then, your team may have already built a lifestyle around waiting for it.\n\n---\n\n# Editor's Notes\n\n## `[FILL: ...]` items\n\n- `[FILL: CI provider]` if you want to name the actual platform, such as GitHub Actions, GitLab CI, CircleCI, Buildkite, Jenkins, or another system.\n- `[FILL: approximate timeline/date]` if you want the opening to mention when this happened.\n- `[FILL: package ecosystem]` if the real project was not Node/npm. The post currently uses `package.json`, `package-lock.json`, and `npm ci` as a representative Dockerfile example; replace with the real dependency files and install command if different.\n- `[FILL: how cache hit rate was measured]` if you want to include implementation specifics for extracting Docker cache hits from build logs or CI telemetry.\n\n## Visuals to create\n\n1. **Timeline chart:** Build duration over six months, starting near 12 minutes, drifting up to 40 minutes, then dropping back to 12 after the Dockerfile fix.\n2. **Dockerfile before/after snippet:** Highlight the bad ordering (`COPY . .` before dependency install) and the corrected ordering (dependency manifest copy, install, then source copy).\n3. **Dashboard screenshot/mockup:** Two panels: build duration and Docker layer cache hit rate, annotated at the fix point.\n\n## Social summary\n\nA 12-minute CI build slowly became a 40-minute build because Docker layer caching quietly stopped working \u00e2\u20ac\u201d and the real lesson was to measure the assumptions your pipeline depends on.\n"}], "grading": {"summary": {"pass_rate": 0.5, "passed": 4, "failed": 4, "total": 8}, "expectations": [{"text": "Three title options, each using a visibly different strategy", "passed": false, "evidence": "Delivered 'Title + 2 alternates' per old skill; strategies not deliberately diversified or labeled (two of three are declarative statements)."}, {"text": "One title marked as recommended with a stated reason", "passed": false, "evidence": "Main title implied as pick but no reason given for choosing it over alternates."}, {"text": "Titles use trigger word OR number (not both crammed), avoid 'things'", "passed": true, "evidence": "'Our CI Got 3x Slower and Nobody Noticed' \u00e2\u20ac\u201d number only; no 'things'."}, {"text": "Titles avoid clickbait adjectives while making a concrete promise", "passed": true, "evidence": "No clickbait adjectives; honest framing. 'Your CI Pipeline Is Probably Slower Than You Think' is mildly assumptive but acceptable."}, {"text": "Writing plan includes a working title drafted before writing", "passed": false, "evidence": "Plan has hook/sections/takeaway/visuals but no title; title appears only at delivery."}, {"text": "Section subheadings carry a concrete point/promise, not generic labels", "passed": true, "evidence": "'The slow part was not sudden', 'The cache was basically gone' \u00e2\u20ac\u201d concrete (model did this unprompted)."}, {"text": "Story-first opening, ~1000-1400 words, no banned phrases", "passed": true, "evidence": "Opens with new hire's question; post body ~1,450 words (slightly over but close); no banned phrases found."}, {"text": "All facts trace to notes; gaps marked [FILL: ...]", "passed": false, "evidence": "Invented Node/npm specifics (package.json, npm ci) in code snippets presented as 'the important part looked like this before the refactor' \u00e2\u20ac\u201d flagged only later in editor's notes as representative; skill says never invent technical details."}]}}, {"id": "eval-0-incident-post-with_skill-run-1", "prompt": "(No prompt found)", "eval_id": null, "outputs": [{"name": "post.md", "type": "text", "content": "# Blog-editor plan and deliverable\n\n## Phase 1: Editor's gate\n\n\u00e2\u0153\u2026 **Strong angle** \u00e2\u20ac\u201d this has a real incident, a concrete root cause, and hard numbers: a six-month CI slowdown from 12 minutes to 40 minutes, traced to Docker layer cache misses and fixed with both a Dockerfile change and a metric.\n\n## Phase 2: Interview notes\n\nNo live interview was possible, so I treated the provided notes as authoritative and used `[FILL: ...]` markers where only the author can supply specifics.\n\nAlready answered:\n\n- Core incident: CI got 3x slower over six months.\n- Discovery moment: a new hire asked why builds took 40 minutes.\n- Root cause: Docker layer cache hit rate silently dropped near zero after `COPY` commands were reordered.\n- Fix: move dependency install before source copy; add cache-hit-rate metric to dashboard.\n- Outcome: builds returned from 40 minutes to 12 minutes.\n- Lesson: slow degradation is invisible without metrics; humans normalize slowness.\n- Audience: mid-level developers who own CI pipelines.\n- Platform: dev.to.\n\n## Phase 3: Writing plan\n\n**Working title:** How a Dockerfile Reorder Quietly Tripled Our CI Time\n\n**Hook:** A new hire asked a simple question \u00e2\u20ac\u201d why do builds take 40 minutes? \u00e2\u20ac\u201d and accidentally exposed six months of normalized CI pain.\n\n**Sections:**\n\n1. **The question we should have asked months earlier** \u00e2\u20ac\u201d opens with the new hire moment and establishes the 40-minute build as a normalized problem.\n2. **The slowdown was gradual, so it became invisible** \u00e2\u20ac\u201d explains why a 12-to-40-minute drift escaped attention: no metric, no alert, and lots of human adaptation.\n3. **The root cause was hiding in Docker layer caching** \u00e2\u20ac\u201d shows how reordering `COPY` commands invalidated dependency layers and dropped cache hit rate near zero.\n4. **The fix was small; the guardrail mattered more** \u00e2\u20ac\u201d covers moving dependency install before source copy and adding cache-hit-rate visibility.\n5. **What I would check in any CI pipeline now** \u00e2\u20ac\u201d ends with an actionable checklist for readers.\n\n**Takeaway:** If build duration matters, measure the mechanics behind it \u00e2\u20ac\u201d especially cache hit rate \u00e2\u20ac\u201d because humans are extremely good at normalizing slow degradation.\n\n**Visuals:**\n\n1. Mermaid diagram comparing the bad and fixed Docker layer order \u00e2\u20ac\u201d earns its place because layer invalidation is easier to see than explain.\n2. Simple before/after metric table \u00e2\u20ac\u201d earns its place because the numbers are the story.\n3. Dashboard screenshot placeholder for cache-hit-rate metric \u00e2\u20ac\u201d optional but useful if the author can capture the real graph.\n\n**Self-approval:** Approved autonomously per task instruction. The plan is focused on one incident, one technical mechanism, and one practical lesson.\n\n---\n\n# Three title options\n\n1. **How a Dockerfile Reorder Quietly Tripled Our CI Time** \u00e2\u20ac\u201d *recommended*. Clear, specific, and honest; it names the cause and the surprising outcome without clickbait.\n2. **Why Our Builds Took 40 Minutes Until a New Hire Asked One Question** \u00e2\u20ac\u201d story-first; good if you want the human incident to lead.\n3. **A 12-Minute Build Became a 40-Minute Build. We Had No Metric for Why.** \u00e2\u20ac\u201d number-driven; strongest for readers already feeling CI pain.\n\n---\n\n# How a Dockerfile Reorder Quietly Tripled Our CI Time\n\nA new hire asked the kind of question that makes a room go quiet:\n\n\u00e2\u20ac\u0153Why do builds take 40 minutes?\u00e2\u20ac\ufffd\n\nNot \u00e2\u20ac\u0153why is this build slow today?\u00e2\u20ac\ufffd Just a plain question from someone who had not yet been trained to accept waiting as a lifestyle choice.\n\nThe uncomfortable answer was: builds took 40 minutes because we had let them take 40 minutes.\n\nSix months earlier, the same pipeline was closer to 12 minutes. Nothing exploded. No one merged a pull request titled `make-ci-painful`. The build just got a little slower, then a little slower again, until 40 minutes felt normal enough that the newest person on the team was the first one to say it out loud.\n\nThe root cause turned out to be small: a Dockerfile refactor had reordered a few `COPY` commands. That change quietly destroyed our Docker layer cache hit rate. Dependency layers that used to be reused were now being rebuilt constantly.\n\nThe fix was also small. We moved dependency installation back before the source copy and added a cache-hit-rate metric to the dashboard.\n\nBuilds went from 40 minutes back to 12.\n\nThe lesson was less flattering: slow degradation is invisible unless something is measuring it. Humans normalize slowness with alarming efficiency.\n\n## The question we should have asked months earlier\n\nThe new hire did not bring deep CI expertise to the conversation. That was the useful part.\n\nThey brought fresh expectations.\n\nTo the rest of us, the build had become background weather. You opened a pull request, waited, reviewed something else, checked Slack, made coffee, came back, saw one job still running, sighed, and moved on. It was annoying, but familiar.\n\nThat familiarity was the trap.\n\nA 40-minute CI pipeline changes how people work. Reviews get batched. Small pull requests feel less small. Fix-forward becomes more tempting because waiting for validation is expensive. Developers start doing little mental calculations like, \u00e2\u20ac\u0153Is this change worth another build?\u00e2\u20ac\ufffd That is not a healthy question for a team to ask every day.\n\nBut because the slowdown happened over months, it never felt like an incident. There was no single broken build to debug. No red graph. No alert. Just a steadily worsening baseline.\n\nThe new hire saw the pipeline as it was. We saw it as it had gradually become.\n\n## The slowdown was gradual, so it became invisible\n\nMost teams notice sudden failures. A deployment breaks, a test suite turns red, a package registry goes down, and everyone agrees there is a problem.\n\nGradual performance loss is sneakier.\n\nA 12-minute build becoming a 15-minute build might not trigger a response. Neither does 18. At 25, people complain in chat. At 30, someone says, \u00e2\u20ac\u0153Yeah, CI has been slow lately.\u00e2\u20ac\ufffd At 40, the team has built workarounds and folklore around the wait.\n\nThat is how slowness becomes culture.\n\nThe missing piece was not effort. People cared. The missing piece was observability for the thing that actually explained the slowdown.\n\nWe had build duration. We could see that jobs were taking longer. What we did not have was a metric for Docker layer cache effectiveness. Without that, the pipeline looked slow in the way old laptops look slow: vaguely, annoyingly, and with too many possible explanations.\n\nNetwork? Runner capacity? Dependency registry? Test growth? Base image size? All plausible enough to waste an afternoon.\n\nThe real issue was more specific: our Docker build was doing work it used to skip.\n\n## The root cause was hiding in Docker layer caching\n\nDocker layer caching rewards stable inputs. If a layer\u00e2\u20ac\u2122s inputs do not change, Docker can reuse that layer instead of rebuilding it. That is especially valuable for dependency installation, because dependencies often change less frequently than application source code.\n\nA common pattern looks like this:\n\n```dockerfile\nCOPY [FILL: dependency manifest files, such as package.json/package-lock.json or requirements.txt] ./\nRUN [FILL: dependency install command]\n\nCOPY . .\nRUN [FILL: build command]\n```\n\nThe important idea is order.\n\nCopy the dependency manifest first. Install dependencies. Then copy the rest of the source code.\n\nThat way, changing an application file does not automatically invalidate the dependency install layer. If the dependency manifest is unchanged, Docker can reuse the expensive dependency layer.\n\nOur refactor changed that shape to something closer to this:\n\n```dockerfile\nCOPY . .\nRUN [FILL: dependency install command]\nRUN [FILL: build command]\n```\n\nIt looked harmless. It may even have looked cleaner. Fewer lines. Simpler order. Everything copied, then everything built.\n\nBut now almost any source change invalidated the layer before dependency installation. Docker had no choice but to reinstall dependencies far more often. Our cache hit rate silently fell to near zero.\n\n[IMAGE: Diagram showing two Docker build flows side by side. Left: source copied before dependency install, causing frequent cache invalidation. Right: dependency manifests copied first, dependency install cached, source copied later.]\n\n```mermaid\nflowchart LR\n  subgraph Bad[Cache-unfriendly order]\n    A1[Copy all source] --> A2[Install dependencies]\n    A2 --> A3[Build app]\n    A0[Small source change] -. invalidates .-> A1\n  end\n\n  subgraph Good[Cache-friendly order]\n    B1[Copy dependency manifests] --> B2[Install dependencies]\n    B2 --> B3[Copy source]\n    B3 --> B4[Build app]\n    B0[Small source change] -. invalidates later layers only .-> B3\n  end\n```\n\nOnce we looked at the Dockerfile through the lens of layer invalidation, the mystery stopped being mysterious.\n\nThe pipeline was not slow because CI had become fundamentally harder. It was slow because we had accidentally turned off one of the main optimizations that made it fast.\n\n## The fix was small; the guardrail mattered more\n\nThe Dockerfile fix was straightforward: move dependency installation back before copying the full source tree.\n\nThe result was immediate. Builds returned from about 40 minutes to about 12 minutes.\n\n| Metric | Before fix | After fix |\n| --- | ---: | ---: |\n| CI build duration | ~40 minutes | ~12 minutes |\n| Docker layer cache hit rate | Near zero | [FILL: post-fix cache hit rate] |\nThat table is satisfying, but it is not the whole fix.\n\nIf we had stopped at the Dockerfile change, we would have solved the current problem and left the system ready to repeat it later. Someone else could make another innocent refactor. A base image change could alter cache behavior. A dependency file could move. The pipeline could drift again, and we would be back to waiting for another new hire to ask an obvious question.\n\nSo we added a cache-hit-rate metric to the dashboard.\n\n[IMAGE: Screenshot placeholder for the CI dashboard showing build duration next to Docker layer cache hit rate over time, with the cache hit rate dropping near zero during the regression and recovering after the Dockerfile fix.]\n\nThat metric changed the conversation. Build duration tells you that users are feeling pain. Cache hit rate tells you whether one of your biggest CI optimizations is still working.\n\nYou need both.\n\nDuration is the symptom. Cache behavior is one of the causes.\n\n## What I would check in any CI pipeline now\n\nIf you own a CI pipeline, especially one that builds Docker images, I would not start by rewriting the whole thing. I would start by asking boring questions. Boring questions are underrated.\n\nFirst: what is the build duration trend over time? If a build went from 12 minutes to 40 minutes over six months, a snapshot will not tell the story.\n\nSecond: do you know your cache hit rate? For Docker builds, dependency caches, compiler caches, package manager caches, and anything else that exists to prevent repeated work, measure whether the cache is actually being used.\n\nThird: does your Dockerfile copy dependency manifests before source files? The exact files depend on the stack, but the principle is the same. Keep stable inputs early and volatile inputs late.\n\nFourth: would anyone be alerted if the cache stopped working? A dashboard is useful. An alert or regular review is better. A metric nobody looks at is just a graph with aspirations.\n\nFinally: ask someone new what feels slow.\n\nNew people are excellent at spotting normalized pain because they have not yet developed the team\u00e2\u20ac\u2122s coping mechanisms. They ask \u00e2\u20ac\u0153why does this take 40 minutes?\u00e2\u20ac\ufffd before they learn that everyone else stopped asking.\n\nThe technical fix was a Dockerfile reorder. The operational fix was measuring cache hit rate. The cultural fix was relearning that \u00e2\u20ac\u0153it has always been slow\u00e2\u20ac\ufffd is not evidence that it has to be.\n\nIf your CI pipeline is slowly getting worse, do not wait for a dramatic failure. Look for the silent optimizations that stopped optimizing.\n\nYour future pull requests would like their 28 minutes back.\n\n---\n\n# Editor's notes\n\n## `[FILL: ...]` items only the author can supply\n\n- `[FILL: dependency manifest files, such as package.json/package-lock.json or requirements.txt]`\n- `[FILL: dependency install command]`\n- `[FILL: build command]`\n- `[FILL: post-fix cache hit rate]`\n\n## Visuals to create\n\n1. **Docker layer cache flow diagram** \u00e2\u20ac\u201d use the included Mermaid diagram or convert it into a clean image for dev.to if Mermaid rendering is unreliable.\n2. **Before/after metrics table** \u00e2\u20ac\u201d already included in markdown; fill the post-fix cache hit rate if available.\n3. **Dashboard screenshot** \u00e2\u20ac\u201d capture build duration and Docker layer cache hit rate on the same dashboard, ideally showing the regression and recovery.\n\n## One-line social summary\n\nOur CI builds quietly grew from 12 minutes to 40 because a Dockerfile refactor killed layer caching \u00e2\u20ac\u201d the real lesson was to measure cache hit rate before slowness becomes culture.\n"}], "grading": {"summary": {"pass_rate": 1.0, "passed": 8, "failed": 0, "total": 8}, "expectations": [{"text": "Three title options, each using a visibly different strategy", "passed": true, "evidence": "Three titles delivered: 'How a Dockerfile Reorder...' (how/trigger), 'Why Our Builds Took 40 Minutes Until a New Hire Asked One Question' (story/why), 'A 12-Minute Build Became a 40-Minute Build. We Had No Metric for Why.' (number-driven). Each labeled with its strategy."}, {"text": "One title marked as recommended with a stated reason", "passed": true, "evidence": "Title 1 marked '*recommended*. Clear, specific, and honest; it names the cause and the surprising outcome without clickbait.'"}, {"text": "Titles use trigger word OR number (not both crammed), avoid 'things'", "passed": true, "evidence": "No 'things'. Title 2 mixes 'Why' with '40 Minutes' (borderline vs the 'rarely both' guidance), but titles 1 and 3 follow the rule cleanly."}, {"text": "Titles avoid clickbait adjectives while making a concrete promise", "passed": true, "evidence": "No unbelievable/incredible/mind-blowing; promises (cause of 3x CI slowdown) delivered by the post."}, {"text": "Writing plan includes a working title drafted before writing", "passed": true, "evidence": "Phase 3 plan opens with 'Working title: How a Dockerfile Reorder Quietly Tripled Our CI Time'."}, {"text": "Section subheadings carry a concrete point/promise, not generic labels", "passed": true, "evidence": "'The question we should have asked months earlier', 'The fix was small; the guardrail mattered more' \u00e2\u20ac\u201d all concrete, no 'Background'/'The Problem'."}, {"text": "Story-first opening, ~1000-1400 words, no banned phrases", "passed": true, "evidence": "Opens with new hire's question; agent-verified 1,399 words; banned-phrase scan clean."}, {"text": "All facts trace to notes; gaps marked [FILL: ...]", "passed": true, "evidence": "40/12 min, 3x, 6 months, COPY reorder, cache metric all from notes; stack-specific commands left as [FILL: ...] rather than invented."}]}}], "previous_feedback": {}, "previous_outputs": {}, "benchmark": {"metadata": {"skill_name": "blog-editor", "skill_path": "<path/to/skill>", "executor_model": "<model-name>", "analyzer_model": "<model-name>", "timestamp": "2026-07-13T17:04:42Z", "evals_run": [0], "runs_per_configuration": 3}, "runs": [{"eval_id": 0, "configuration": "old_skill", "run_number": 1, "result": {"pass_rate": 0.5, "passed": 4, "failed": 4, "total": 8, "time_seconds": 132.0, "tokens": 0, "tool_calls": 0, "errors": 0}, "expectations": [{"text": "Three title options, each using a visibly different strategy", "passed": false, "evidence": "Delivered 'Title + 2 alternates' per old skill; strategies not deliberately diversified or labeled (two of three are declarative statements)."}, {"text": "One title marked as recommended with a stated reason", "passed": false, "evidence": "Main title implied as pick but no reason given for choosing it over alternates."}, {"text": "Titles use trigger word OR number (not both crammed), avoid 'things'", "passed": true, "evidence": "'Our CI Got 3x Slower and Nobody Noticed' \u00e2\u20ac\u201d number only; no 'things'."}, {"text": "Titles avoid clickbait adjectives while making a concrete promise", "passed": true, "evidence": "No clickbait adjectives; honest framing. 'Your CI Pipeline Is Probably Slower Than You Think' is mildly assumptive but acceptable."}, {"text": "Writing plan includes a working title drafted before writing", "passed": false, "evidence": "Plan has hook/sections/takeaway/visuals but no title; title appears only at delivery."}, {"text": "Section subheadings carry a concrete point/promise, not generic labels", "passed": true, "evidence": "'The slow part was not sudden', 'The cache was basically gone' \u00e2\u20ac\u201d concrete (model did this unprompted)."}, {"text": "Story-first opening, ~1000-1400 words, no banned phrases", "passed": true, "evidence": "Opens with new hire's question; post body ~1,450 words (slightly over but close); no banned phrases found."}, {"text": "All facts trace to notes; gaps marked [FILL: ...]", "passed": false, "evidence": "Invented Node/npm specifics (package.json, npm ci) in code snippets presented as 'the important part looked like this before the refactor' \u00e2\u20ac\u201d flagged only later in editor's notes as representative; skill says never invent technical details."}], "notes": []}, {"eval_id": 0, "configuration": "with_skill", "run_number": 1, "result": {"pass_rate": 1.0, "passed": 8, "failed": 0, "total": 8, "time_seconds": 137.0, "tokens": 0, "tool_calls": 0, "errors": 0}, "expectations": [{"text": "Three title options, each using a visibly different strategy", "passed": true, "evidence": "Three titles delivered: 'How a Dockerfile Reorder...' (how/trigger), 'Why Our Builds Took 40 Minutes Until a New Hire Asked One Question' (story/why), 'A 12-Minute Build Became a 40-Minute Build. We Had No Metric for Why.' (number-driven). Each labeled with its strategy."}, {"text": "One title marked as recommended with a stated reason", "passed": true, "evidence": "Title 1 marked '*recommended*. Clear, specific, and honest; it names the cause and the surprising outcome without clickbait.'"}, {"text": "Titles use trigger word OR number (not both crammed), avoid 'things'", "passed": true, "evidence": "No 'things'. Title 2 mixes 'Why' with '40 Minutes' (borderline vs the 'rarely both' guidance), but titles 1 and 3 follow the rule cleanly."}, {"text": "Titles avoid clickbait adjectives while making a concrete promise", "passed": true, "evidence": "No unbelievable/incredible/mind-blowing; promises (cause of 3x CI slowdown) delivered by the post."}, {"text": "Writing plan includes a working title drafted before writing", "passed": true, "evidence": "Phase 3 plan opens with 'Working title: How a Dockerfile Reorder Quietly Tripled Our CI Time'."}, {"text": "Section subheadings carry a concrete point/promise, not generic labels", "passed": true, "evidence": "'The question we should have asked months earlier', 'The fix was small; the guardrail mattered more' \u00e2\u20ac\u201d all concrete, no 'Background'/'The Problem'."}, {"text": "Story-first opening, ~1000-1400 words, no banned phrases", "passed": true, "evidence": "Opens with new hire's question; agent-verified 1,399 words; banned-phrase scan clean."}, {"text": "All facts trace to notes; gaps marked [FILL: ...]", "passed": true, "evidence": "40/12 min, 3x, 6 months, COPY reorder, cache metric all from notes; stack-specific commands left as [FILL: ...] rather than invented."}], "notes": []}], "run_summary": {"old_skill": {"pass_rate": {"mean": 0.5, "stddev": 0.0, "min": 0.5, "max": 0.5}, "time_seconds": {"mean": 132.0, "stddev": 0.0, "min": 132.0, "max": 132.0}, "tokens": {"mean": 0.0, "stddev": 0.0, "min": 0, "max": 0}}, "with_skill": {"pass_rate": {"mean": 1.0, "stddev": 0.0, "min": 1.0, "max": 1.0}, "time_seconds": {"mean": 137.0, "stddev": 0.0, "min": 137.0, "max": 137.0}, "tokens": {"mean": 0.0, "stddev": 0.0, "min": 0, "max": 0}}, "delta": {"pass_rate": "-0.50", "time_seconds": "-5.0", "tokens": "+0"}}, "notes": []}};
+
+    // ---- State ----
+    let feedbackMap = {};  // run_id -> feedback text
+    let currentIndex = 0;
+    let visitedRuns = new Set();
+
+    // ---- Init ----
+    async function init() {
+      // Load saved feedback from server — but only if this isn't a fresh
+      // iteration (indicated by previous_feedback being present). When
+      // previous feedback exists, the feedback.json on disk is stale from
+      // the prior iteration and should not pre-fill the textareas.
+      const hasPrevious = Object.keys(EMBEDDED_DATA.previous_feedback || {}).length > 0
+        || Object.keys(EMBEDDED_DATA.previous_outputs || {}).length > 0;
+      if (!hasPrevious) {
+        try {
+          const resp = await fetch("/api/feedback");
+          const data = await resp.json();
+          if (data.reviews) {
+            for (const r of data.reviews) feedbackMap[r.run_id] = r.feedback;
+          }
+        } catch { /* first run, no feedback yet */ }
+      }
+
+      document.getElementById("skill-name").textContent = EMBEDDED_DATA.skill_name;
+      showRun(0);
+
+      // Wire up feedback auto-save
+      const textarea = document.getElementById("feedback");
+      let saveTimeout = null;
+      textarea.addEventListener("input", () => {
+        clearTimeout(saveTimeout);
+        document.getElementById("feedback-status").textContent = "";
+        saveTimeout = setTimeout(() => saveCurrentFeedback(), 800);
+      });
+    }
+
+    // ---- Navigation ----
+    function navigate(delta) {
+      const newIndex = currentIndex + delta;
+      if (newIndex >= 0 && newIndex < EMBEDDED_DATA.runs.length) {
+        saveCurrentFeedback();
+        showRun(newIndex);
+      }
+    }
+
+    function updateNavButtons() {
+      document.getElementById("prev-btn").disabled = currentIndex === 0;
+      document.getElementById("next-btn").disabled =
+        currentIndex === EMBEDDED_DATA.runs.length - 1;
+    }
+
+    // ---- Show a run ----
+    function showRun(index) {
+      currentIndex = index;
+      const run = EMBEDDED_DATA.runs[index];
+
+      // Progress
+      document.getElementById("progress").textContent =
+        `${index + 1} of ${EMBEDDED_DATA.runs.length}`;
+
+      // Prompt
+      document.getElementById("prompt-text").textContent = run.prompt;
+
+      // Config badge
+      const badge = document.getElementById("config-badge");
+      const configMatch = run.id.match(/(with_skill|without_skill|new_skill|old_skill)/);
+      if (configMatch) {
+        const config = configMatch[1];
+        const isBaseline = config === "without_skill" || config === "old_skill";
+        badge.textContent = config.replace(/_/g, " ");
+        badge.className = "config-badge " + (isBaseline ? "config-baseline" : "config-primary");
+        badge.style.display = "inline-block";
+      } else {
+        badge.style.display = "none";
+      }
+
+      // Outputs
+      renderOutputs(run);
+
+      // Previous outputs
+      renderPrevOutputs(run);
+
+      // Grades
+      renderGrades(run);
+
+      // Previous feedback
+      const prevFb = (EMBEDDED_DATA.previous_feedback || {})[run.id];
+      const prevEl = document.getElementById("prev-feedback");
+      if (prevFb) {
+        document.getElementById("prev-feedback-text").textContent = prevFb;
+        prevEl.style.display = "block";
+      } else {
+        prevEl.style.display = "none";
+      }
+
+      // Feedback
+      document.getElementById("feedback").value = feedbackMap[run.id] || "";
+      document.getElementById("feedback-status").textContent = "";
+
+      updateNavButtons();
+
+      // Track visited runs and promote done button when all visited
+      visitedRuns.add(index);
+      const doneBtn = document.getElementById("done-btn");
+      if (visitedRuns.size >= EMBEDDED_DATA.runs.length) {
+        doneBtn.classList.add("ready");
+      }
+
+      // Scroll main content to top
+      document.querySelector(".main").scrollTop = 0;
+    }
+
+    // ---- Render outputs ----
+    function renderOutputs(run) {
+      const container = document.getElementById("outputs-body");
+      container.innerHTML = "";
+
+      const outputs = run.outputs || [];
+      if (outputs.length === 0) {
+        container.innerHTML = '<div class="empty-state">No output files</div>';
+        return;
+      }
+
+      for (const file of outputs) {
+        const fileDiv = document.createElement("div");
+        fileDiv.className = "output-file";
+
+        // Always show file header with download link
+        const header = document.createElement("div");
+        header.className = "output-file-header";
+        const nameSpan = document.createElement("span");
+        nameSpan.textContent = file.name;
+        header.appendChild(nameSpan);
+        const dlBtn = document.createElement("a");
+        dlBtn.className = "dl-btn";
+        dlBtn.textContent = "Download";
+        dlBtn.download = file.name;
+        dlBtn.href = getDownloadUri(file);
+        header.appendChild(dlBtn);
+        fileDiv.appendChild(header);
+
+        const content = document.createElement("div");
+        content.className = "output-file-content";
+
+        if (file.type === "text") {
+          const pre = document.createElement("pre");
+          pre.textContent = file.content;
+          content.appendChild(pre);
+        } else if (file.type === "image") {
+          const img = document.createElement("img");
+          img.src = file.data_uri;
+          img.alt = file.name;
+          content.appendChild(img);
+        } else if (file.type === "pdf") {
+          const iframe = document.createElement("iframe");
+          iframe.src = file.data_uri;
+          content.appendChild(iframe);
+        } else if (file.type === "xlsx") {
+          renderXlsx(content, file.data_b64);
+        } else if (file.type === "binary") {
+          const a = document.createElement("a");
+          a.className = "download-link";
+          a.href = file.data_uri;
+          a.download = file.name;
+          a.textContent = "Download " + file.name;
+          content.appendChild(a);
+        } else if (file.type === "error") {
+          const pre = document.createElement("pre");
+          pre.textContent = file.content;
+          pre.style.color = "var(--red)";
+          content.appendChild(pre);
+        }
+
+        fileDiv.appendChild(content);
+        container.appendChild(fileDiv);
+      }
+    }
+
+    // ---- XLSX rendering via SheetJS ----
+    function renderXlsx(container, b64Data) {
+      try {
+        const raw = Uint8Array.from(atob(b64Data), c => c.charCodeAt(0));
+        const wb = XLSX.read(raw, { type: "array" });
+
+        for (let i = 0; i < wb.SheetNames.length; i++) {
+          const sheetName = wb.SheetNames[i];
+          const ws = wb.Sheets[sheetName];
+
+          if (wb.SheetNames.length > 1) {
+            const sheetLabel = document.createElement("div");
+            sheetLabel.style.cssText =
+              "font-weight:600; font-size:0.8rem; color:#b0aea5; margin-top:0.5rem; margin-bottom:0.25rem;";
+            sheetLabel.textContent = "Sheet: " + sheetName;
+            container.appendChild(sheetLabel);
+          }
+
+          const htmlStr = XLSX.utils.sheet_to_html(ws, { editable: false });
+          const wrapper = document.createElement("div");
+          wrapper.innerHTML = htmlStr;
+          container.appendChild(wrapper);
+        }
+      } catch (err) {
+        container.textContent = "Error rendering spreadsheet: " + err.message;
+      }
+    }
+
+    // ---- Grades ----
+    function renderGrades(run) {
+      const section = document.getElementById("grades-section");
+      const content = document.getElementById("grades-content");
+
+      if (!run.grading) {
+        section.style.display = "none";
+        return;
+      }
+
+      const grading = run.grading;
+      section.style.display = "block";
+      // Reset to collapsed
+      content.classList.remove("open");
+      document.getElementById("grades-arrow").classList.remove("open");
+
+      const summary = grading.summary || {};
+      const expectations = grading.expectations || [];
+
+      let html = '<div style="padding: 1rem;">';
+
+      // Summary line
+      const passRate = summary.pass_rate != null
+        ? Math.round(summary.pass_rate * 100) + "%"
+        : "?";
+      const badgeClass = summary.pass_rate >= 0.8 ? "grade-pass" : summary.pass_rate >= 0.5 ? "" : "grade-fail";
+      html += '<div class="grades-summary">';
+      html += '<span class="grade-badge ' + badgeClass + '">' + passRate + '</span>';
+      html += '<span>' + (summary.passed || 0) + ' passed, ' + (summary.failed || 0) + ' failed of ' + (summary.total || 0) + '</span>';
+      html += '</div>';
+
+      // Assertions list
+      html += '<ul class="assertion-list">';
+      for (const exp of expectations) {
+        const statusClass = exp.passed ? "pass" : "fail";
+        const statusIcon = exp.passed ? "\u2713" : "\u2717";
+        html += '<li class="assertion-item">';
+        html += '<span class="assertion-status ' + statusClass + '">' + statusIcon + '</span>';
+        html += '<span>' + escapeHtml(exp.text) + '</span>';
+        if (exp.evidence) {
+          html += '<div class="assertion-evidence">' + escapeHtml(exp.evidence) + '</div>';
+        }
+        html += '</li>';
+      }
+      html += '</ul>';
+
+      html += '</div>';
+      content.innerHTML = html;
+    }
+
+    function toggleGrades() {
+      const content = document.getElementById("grades-content");
+      const arrow = document.getElementById("grades-arrow");
+      content.classList.toggle("open");
+      arrow.classList.toggle("open");
+    }
+
+    // ---- Previous outputs (collapsible) ----
+    function renderPrevOutputs(run) {
+      const section = document.getElementById("prev-outputs-section");
+      const content = document.getElementById("prev-outputs-content");
+      const prevOutputs = (EMBEDDED_DATA.previous_outputs || {})[run.id];
+
+      if (!prevOutputs || prevOutputs.length === 0) {
+        section.style.display = "none";
+        return;
+      }
+
+      section.style.display = "block";
+      // Reset to collapsed
+      content.classList.remove("open");
+      document.getElementById("prev-outputs-arrow").classList.remove("open");
+
+      // Render the files into the content area
+      content.innerHTML = "";
+      const wrapper = document.createElement("div");
+      wrapper.style.padding = "1rem";
+
+      for (const file of prevOutputs) {
+        const fileDiv = document.createElement("div");
+        fileDiv.className = "output-file";
+
+        const header = document.createElement("div");
+        header.className = "output-file-header";
+        const nameSpan = document.createElement("span");
+        nameSpan.textContent = file.name;
+        header.appendChild(nameSpan);
+        const dlBtn = document.createElement("a");
+        dlBtn.className = "dl-btn";
+        dlBtn.textContent = "Download";
+        dlBtn.download = file.name;
+        dlBtn.href = getDownloadUri(file);
+        header.appendChild(dlBtn);
+        fileDiv.appendChild(header);
+
+        const fc = document.createElement("div");
+        fc.className = "output-file-content";
+
+        if (file.type === "text") {
+          const pre = document.createElement("pre");
+          pre.textContent = file.content;
+          fc.appendChild(pre);
+        } else if (file.type === "image") {
+          const img = document.createElement("img");
+          img.src = file.data_uri;
+          img.alt = file.name;
+          fc.appendChild(img);
+        } else if (file.type === "pdf") {
+          const iframe = document.createElement("iframe");
+          iframe.src = file.data_uri;
+          fc.appendChild(iframe);
+        } else if (file.type === "xlsx") {
+          renderXlsx(fc, file.data_b64);
+        } else if (file.type === "binary") {
+          const a = document.createElement("a");
+          a.className = "download-link";
+          a.href = file.data_uri;
+          a.download = file.name;
+          a.textContent = "Download " + file.name;
+          fc.appendChild(a);
+        }
+
+        fileDiv.appendChild(fc);
+        wrapper.appendChild(fileDiv);
+      }
+
+      content.appendChild(wrapper);
+    }
+
+    function togglePrevOutputs() {
+      const content = document.getElementById("prev-outputs-content");
+      const arrow = document.getElementById("prev-outputs-arrow");
+      content.classList.toggle("open");
+      arrow.classList.toggle("open");
+    }
+
+    // ---- Feedback (saved to server -> feedback.json) ----
+    function saveCurrentFeedback() {
+      const run = EMBEDDED_DATA.runs[currentIndex];
+      const text = document.getElementById("feedback").value;
+
+      if (text.trim() === "") {
+        delete feedbackMap[run.id];
+      } else {
+        feedbackMap[run.id] = text;
+      }
+
+      // Build reviews array from map
+      const reviews = [];
+      for (const [run_id, feedback] of Object.entries(feedbackMap)) {
+        if (feedback.trim()) {
+          reviews.push({ run_id, feedback, timestamp: new Date().toISOString() });
+        }
+      }
+
+      fetch("/api/feedback", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ reviews, status: "in_progress" }),
+      }).then(() => {
+        document.getElementById("feedback-status").textContent = "Saved";
+      }).catch(() => {
+        // Static mode or server unavailable — no-op on auto-save,
+        // feedback will be downloaded on final submit
+        document.getElementById("feedback-status").textContent = "Will download on submit";
+      });
+    }
+
+    // ---- Done ----
+    function showDoneDialog() {
+      // Save current textarea to feedbackMap (but don't POST yet)
+      const run = EMBEDDED_DATA.runs[currentIndex];
+      const text = document.getElementById("feedback").value;
+      if (text.trim() === "") {
+        delete feedbackMap[run.id];
+      } else {
+        feedbackMap[run.id] = text;
+      }
+
+      // POST once with status: complete — include ALL runs so the model
+      // can distinguish "no feedback" (looks good) from "not reviewed"
+      const reviews = [];
+      const ts = new Date().toISOString();
+      for (const r of EMBEDDED_DATA.runs) {
+        reviews.push({ run_id: r.id, feedback: feedbackMap[r.id] || "", timestamp: ts });
+      }
+      const payload = JSON.stringify({ reviews, status: "complete" }, null, 2);
+      fetch("/api/feedback", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: payload,
+      }).then(() => {
+        document.getElementById("done-overlay").classList.add("visible");
+      }).catch(() => {
+        // Server not available (static mode) — download as file
+        const blob = new Blob([payload], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "feedback.json";
+        a.click();
+        URL.revokeObjectURL(url);
+        document.getElementById("done-overlay").classList.add("visible");
+      });
+    }
+
+    function closeDoneDialog() {
+      // Reset status back to in_progress
+      saveCurrentFeedback();
+      document.getElementById("done-overlay").classList.remove("visible");
+    }
+
+    // ---- Toast ----
+    function showToast(message) {
+      const toast = document.getElementById("toast");
+      toast.textContent = message;
+      toast.classList.add("visible");
+      setTimeout(() => toast.classList.remove("visible"), 2000);
+    }
+
+    // ---- Keyboard nav ----
+    document.addEventListener("keydown", (e) => {
+      // Don't capture when typing in textarea
+      if (e.target.tagName === "TEXTAREA") return;
+
+      if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+        e.preventDefault();
+        navigate(-1);
+      } else if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+        e.preventDefault();
+        navigate(1);
+      }
+    });
+
+    // ---- Util ----
+    function getDownloadUri(file) {
+      if (file.data_uri) return file.data_uri;
+      if (file.data_b64) return "data:application/octet-stream;base64," + file.data_b64;
+      if (file.type === "text") return "data:text/plain;charset=utf-8," + encodeURIComponent(file.content);
+      return "#";
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement("div");
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    // ---- View switching ----
+    function switchView(view) {
+      document.querySelectorAll(".view-tab").forEach(t => t.classList.remove("active"));
+      document.querySelectorAll(".view-panel").forEach(p => p.classList.remove("active"));
+      document.querySelector(`[onclick="switchView('${view}')"]`).classList.add("active");
+      document.getElementById("panel-" + view).classList.add("active");
+    }
+
+    // ---- Benchmark rendering ----
+    function renderBenchmark() {
+      const data = EMBEDDED_DATA.benchmark;
+      if (!data) return;
+
+      // Show the tabs
+      document.getElementById("view-tabs").style.display = "flex";
+
+      const container = document.getElementById("benchmark-content");
+      const summary = data.run_summary || {};
+      const metadata = data.metadata || {};
+      const notes = data.notes || [];
+
+      let html = "";
+
+      // Header
+      html += "<h2 style='font-family: Poppins, sans-serif; margin-bottom: 0.5rem;'>Benchmark Results</h2>";
+      html += "<p style='color: var(--text-muted); font-size: 0.875rem; margin-bottom: 1.25rem;'>";
+      if (metadata.skill_name) html += "<strong>" + escapeHtml(metadata.skill_name) + "</strong> &mdash; ";
+      if (metadata.timestamp) html += metadata.timestamp + " &mdash; ";
+      if (metadata.evals_run) html += "Evals: " + metadata.evals_run.join(", ") + " &mdash; ";
+      html += (metadata.runs_per_configuration || "?") + " runs per configuration";
+      html += "</p>";
+
+      // Summary table
+      html += '<table class="benchmark-table">';
+
+      function fmtStat(stat, pct) {
+        if (!stat) return "—";
+        const suffix = pct ? "%" : "";
+        const m = pct ? (stat.mean * 100).toFixed(0) : stat.mean.toFixed(1);
+        const s = pct ? (stat.stddev * 100).toFixed(0) : stat.stddev.toFixed(1);
+        return m + suffix + " ± " + s + suffix;
+      }
+
+      function deltaClass(val) {
+        if (!val) return "";
+        const n = parseFloat(val);
+        if (n > 0) return "benchmark-delta-positive";
+        if (n < 0) return "benchmark-delta-negative";
+        return "";
+      }
+
+      // Discover config names dynamically (everything except "delta")
+      const configs = Object.keys(summary).filter(k => k !== "delta");
+      const configA = configs[0] || "config_a";
+      const configB = configs[1] || "config_b";
+      const labelA = configA.replace(/_/g, " ").replace(/\b\w/g, c => c.toUpperCase());
+      const labelB = configB.replace(/_/g, " ").replace(/\b\w/g, c => c.toUpperCase());
+      const a = summary[configA] || {};
+      const b = summary[configB] || {};
+      const delta = summary.delta || {};
+
+      html += "<thead><tr><th>Metric</th><th>" + escapeHtml(labelA) + "</th><th>" + escapeHtml(labelB) + "</th><th>Delta</th></tr></thead>";
+      html += "<tbody>";
+
+      html += "<tr><td><strong>Pass Rate</strong></td>";
+      html += "<td>" + fmtStat(a.pass_rate, true) + "</td>";
+      html += "<td>" + fmtStat(b.pass_rate, true) + "</td>";
+      html += '<td class="' + deltaClass(delta.pass_rate) + '">' + (delta.pass_rate || "—") + "</td></tr>";
+
+      // Time (only show row if data exists)
+      if (a.time_seconds || b.time_seconds) {
+        html += "<tr><td><strong>Time (s)</strong></td>";
+        html += "<td>" + fmtStat(a.time_seconds, false) + "</td>";
+        html += "<td>" + fmtStat(b.time_seconds, false) + "</td>";
+        html += '<td class="' + deltaClass(delta.time_seconds) + '">' + (delta.time_seconds ? delta.time_seconds + "s" : "—") + "</td></tr>";
+      }
+
+      // Tokens (only show row if data exists)
+      if (a.tokens || b.tokens) {
+        html += "<tr><td><strong>Tokens</strong></td>";
+        html += "<td>" + fmtStat(a.tokens, false) + "</td>";
+        html += "<td>" + fmtStat(b.tokens, false) + "</td>";
+        html += '<td class="' + deltaClass(delta.tokens) + '">' + (delta.tokens || "—") + "</td></tr>";
+      }
+
+      html += "</tbody></table>";
+
+      // Per-eval breakdown (if runs data available)
+      const runs = data.runs || [];
+      if (runs.length > 0) {
+        const evalIds = [...new Set(runs.map(r => r.eval_id))].sort((a, b) => a - b);
+
+        html += "<h3 style='font-family: Poppins, sans-serif; margin-bottom: 0.75rem;'>Per-Eval Breakdown</h3>";
+
+        const hasTime = runs.some(r => r.result && r.result.time_seconds != null);
+        const hasErrors = runs.some(r => r.result && r.result.errors > 0);
+
+        for (const evalId of evalIds) {
+          const evalRuns = runs.filter(r => r.eval_id === evalId);
+          const evalName = evalRuns[0] && evalRuns[0].eval_name ? evalRuns[0].eval_name : "Eval " + evalId;
+
+          html += "<h4 style='font-family: Poppins, sans-serif; margin: 1rem 0 0.5rem; color: var(--text);'>" + escapeHtml(evalName) + "</h4>";
+          html += '<table class="benchmark-table">';
+          html += "<thead><tr><th>Config</th><th>Run</th><th>Pass Rate</th>";
+          if (hasTime) html += "<th>Time (s)</th>";
+          if (hasErrors) html += "<th>Crashes During Execution</th>";
+          html += "</tr></thead>";
+          html += "<tbody>";
+
+          // Group by config and render with average rows
+          const configGroups = [...new Set(evalRuns.map(r => r.configuration))];
+          for (let ci = 0; ci < configGroups.length; ci++) {
+            const config = configGroups[ci];
+            const configRuns = evalRuns.filter(r => r.configuration === config);
+            if (configRuns.length === 0) continue;
+
+            const rowClass = ci === 0 ? "benchmark-row-with" : "benchmark-row-without";
+            const configLabel = config.replace(/_/g, " ").replace(/\b\w/g, c => c.toUpperCase());
+
+            for (const run of configRuns) {
+              const r = run.result || {};
+              const prClass = r.pass_rate >= 0.8 ? "benchmark-delta-positive" : r.pass_rate < 0.5 ? "benchmark-delta-negative" : "";
+              html += '<tr class="' + rowClass + '">';
+              html += "<td>" + configLabel + "</td>";
+              html += "<td>" + run.run_number + "</td>";
+              html += '<td class="' + prClass + '">' + ((r.pass_rate || 0) * 100).toFixed(0) + "% (" + (r.passed || 0) + "/" + (r.total || 0) + ")</td>";
+              if (hasTime) html += "<td>" + (r.time_seconds != null ? r.time_seconds.toFixed(1) : "—") + "</td>";
+              if (hasErrors) html += "<td>" + (r.errors || 0) + "</td>";
+              html += "</tr>";
+            }
+
+            // Average row
+            const rates = configRuns.map(r => (r.result || {}).pass_rate || 0);
+            const avgRate = rates.reduce((a, b) => a + b, 0) / rates.length;
+            const avgPrClass = avgRate >= 0.8 ? "benchmark-delta-positive" : avgRate < 0.5 ? "benchmark-delta-negative" : "";
+            html += '<tr class="benchmark-row-avg ' + rowClass + '">';
+            html += "<td>" + configLabel + "</td>";
+            html += "<td>Avg</td>";
+            html += '<td class="' + avgPrClass + '">' + (avgRate * 100).toFixed(0) + "%</td>";
+            if (hasTime) {
+              const times = configRuns.map(r => (r.result || {}).time_seconds).filter(t => t != null);
+              html += "<td>" + (times.length ? (times.reduce((a, b) => a + b, 0) / times.length).toFixed(1) : "—") + "</td>";
+            }
+            if (hasErrors) html += "<td></td>";
+            html += "</tr>";
+          }
+          html += "</tbody></table>";
+
+          // Per-assertion detail for this eval
+          const runsWithExpectations = {};
+          for (const config of configGroups) {
+            runsWithExpectations[config] = evalRuns.filter(r => r.configuration === config && r.expectations && r.expectations.length > 0);
+          }
+          const hasAnyExpectations = Object.values(runsWithExpectations).some(runs => runs.length > 0);
+          if (hasAnyExpectations) {
+            // Collect all unique assertion texts across all configs
+            const allAssertions = [];
+            const seen = new Set();
+            for (const config of configGroups) {
+              for (const run of runsWithExpectations[config]) {
+                for (const exp of (run.expectations || [])) {
+                  if (!seen.has(exp.text)) {
+                    seen.add(exp.text);
+                    allAssertions.push(exp.text);
+                  }
+                }
+              }
+            }
+
+            html += '<table class="benchmark-table" style="margin-top: 0.5rem;">';
+            html += "<thead><tr><th>Assertion</th>";
+            for (const config of configGroups) {
+              const label = config.replace(/_/g, " ").replace(/\b\w/g, c => c.toUpperCase());
+              html += "<th>" + escapeHtml(label) + "</th>";
+            }
+            html += "</tr></thead><tbody>";
+
+            for (const assertionText of allAssertions) {
+              html += "<tr><td>" + escapeHtml(assertionText) + "</td>";
+
+              for (const config of configGroups) {
+                html += "<td>";
+                for (const run of runsWithExpectations[config]) {
+                  const exp = (run.expectations || []).find(e => e.text === assertionText);
+                  if (exp) {
+                    const cls = exp.passed ? "benchmark-delta-positive" : "benchmark-delta-negative";
+                    const icon = exp.passed ? "\u2713" : "\u2717";
+                    html += '<span class="' + cls + '" title="Run ' + run.run_number + ': ' + escapeHtml(exp.evidence || "") + '">' + icon + "</span> ";
+                  } else {
+                    html += "— ";
+                  }
+                }
+                html += "</td>";
+              }
+              html += "</tr>";
+            }
+            html += "</tbody></table>";
+          }
+        }
+      }
+
+      // Notes
+      if (notes.length > 0) {
+        html += '<div class="benchmark-notes">';
+        html += "<h3>Analysis Notes</h3>";
+        html += "<ul>";
+        for (const note of notes) {
+          html += "<li>" + escapeHtml(note) + "</li>";
+        }
+        html += "</ul></div>";
+      }
+
+      container.innerHTML = html;
+    }
+
+    // ---- Start ----
+    init();
+    renderBenchmark();
+  </script>
+</body>
+</html>

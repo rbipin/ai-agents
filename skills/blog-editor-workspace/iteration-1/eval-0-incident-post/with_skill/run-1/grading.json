@@ -1,0 +1,13 @@
+{
+  "summary": {"pass_rate": 1.0, "passed": 8, "failed": 0, "total": 8},
+  "expectations": [
+    {"text": "Three title options, each using a visibly different strategy", "passed": true, "evidence": "Three titles delivered: 'How a Dockerfile Reorder...' (how/trigger), 'Why Our Builds Took 40 Minutes Until a New Hire Asked One Question' (story/why), 'A 12-Minute Build Became a 40-Minute Build. We Had No Metric for Why.' (number-driven). Each labeled with its strategy."},
+    {"text": "One title marked as recommended with a stated reason", "passed": true, "evidence": "Title 1 marked '*recommended*. Clear, specific, and honest; it names the cause and the surprising outcome without clickbait.'"},
+    {"text": "Titles use trigger word OR number (not both crammed), avoid 'things'", "passed": true, "evidence": "No 'things'. Title 2 mixes 'Why' with '40 Minutes' (borderline vs the 'rarely both' guidance), but titles 1 and 3 follow the rule cleanly."},
+    {"text": "Titles avoid clickbait adjectives while making a concrete promise", "passed": true, "evidence": "No unbelievable/incredible/mind-blowing; promises (cause of 3x CI slowdown) delivered by the post."},
+    {"text": "Writing plan includes a working title drafted before writing", "passed": true, "evidence": "Phase 3 plan opens with 'Working title: How a Dockerfile Reorder Quietly Tripled Our CI Time'."},
+    {"text": "Section subheadings carry a concrete point/promise, not generic labels", "passed": true, "evidence": "'The question we should have asked months earlier', 'The fix was small; the guardrail mattered more' — all concrete, no 'Background'/'The Problem'."},
+    {"text": "Story-first opening, ~1000-1400 words, no banned phrases", "passed": true, "evidence": "Opens with new hire's question; agent-verified 1,399 words; banned-phrase scan clean."},
+    {"text": "All facts trace to notes; gaps marked [FILL: ...]", "passed": true, "evidence": "40/12 min, 3x, 6 months, COPY reorder, cache metric all from notes; stack-specific commands left as [FILL: ...] rather than invented."}
+  ]
+}
