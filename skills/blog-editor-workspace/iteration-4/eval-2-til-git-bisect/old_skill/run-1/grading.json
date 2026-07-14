@@ -1,0 +1,60 @@
+{
+  "expectations": [
+    {
+      "text": "Plan identifies a plausible search phrase (e.g. 'git bisect run automate' / 'find breaking commit automatically')",
+      "passed": false,
+      "evidence": "The Writing Plan section has no 'search phrase' or SEO/keyword-research field at all; it only covers verdict, archetype, audience, hook, structure, takeaway, visuals, and assumptions."
+    },
+    {
+      "text": "The recommended title contains the search phrase or a close natural variant, without reading as keyword-contorted",
+      "passed": false,
+      "evidence": "No search phrase was ever identified, so there is nothing for the recommended title ('From 3 hours to 4 minutes: let git bisect run do the bug hunt') to be checked against; this is a byproduct of assertion 1's absence, not an intentional SEO title choice."
+    },
+    {
+      "text": "SEO packet delivered with a meta description of roughly 120-170 characters that accurately pitches the post",
+      "passed": false,
+      "evidence": "No meta description appears anywhere in the document; the closest content is the dev.to 'Suggested tags' line, which is not a meta description."
+    },
+    {
+      "text": "SEO packet includes a short readable hyphenated URL slug",
+      "passed": false,
+      "evidence": "No URL slug is proposed anywhere in the Writing Plan, Title Options, or Editor's Notes sections."
+    },
+    {
+      "text": "SEO packet or editor's notes mention setting the canonical URL when cross-posting",
+      "passed": false,
+      "evidence": "Editor's Notes covers [FILL] markers, honesty note, fresh-eyes review changes, and dev.to specifics (tags, cover image, word count) but never mentions canonical URL or cross-posting."
+    },
+    {
+      "text": "No keyword stuffing: 'git bisect' appears naturally where needed, not repeated mechanically",
+      "passed": true,
+      "evidence": "'git bisect' / 'git bisect run' appear only where contextually needed (title, intro anecdote, code block, explanation) and the prose otherwise uses natural referents like 'the tool', 'it', or 'the script', with no mechanical repetition."
+    },
+    {
+      "text": "Post body is roughly 300-600 words (TIL exception), humble generous tone, one nugget, not padded to 1000+",
+      "passed": true,
+      "evidence": "Editor's Notes states 'Word count: ~470 (within TIL target of 300\u2013600)', and the tone throughout ('Then you go get coffee.', 'Future you gets to drink the coffee while git does the search.') is humble/generous with a single core nugget (git bisect run) rather than padded content."
+    },
+    {
+      "text": "Facts traceable to notes (3 hours, ~200 commits, 4 minutes, 8 steps, exit 0/non-zero, curl health endpoint); gaps marked [FILL]",
+      "passed": true,
+      "evidence": "The post states '3 hours', '~200 commits', 'about four minutes', 'Eight automatic steps', the full exit-code contract (0/1-127/125/>127), and 'curled the health endpoint'; unknowns like build command, launch command, health endpoint URL, and last-known-good ref are explicitly marked '[FILL]'."
+    },
+    {
+      "text": "Three strategy-diverse titles with a recommended pick and reason",
+      "passed": true,
+      "evidence": "Three titles are given with distinct strategies (numbers/outcome-driven, classic TIL curiosity framing, imperative pain-point framing), and title 1 is marked '\u2190 recommended: concrete outcome + numbers, the post's strongest asset'."
+    },
+    {
+      "text": "No banned phrases or AI-tells; ending has concrete next action and an engagement question for dev.to",
+      "passed": true,
+      "evidence": "No stock AI phrases like 'in today's fast-paced world' or 'let's dive in' appear; the ending gives a concrete next action ('write the tiny script *first*') followed by one engagement question ('What's the most time you've sunk into manually hunting a bad commit?')."
+    }
+  ],
+  "summary": {
+    "passed": 5,
+    "failed": 5,
+    "total": 10,
+    "pass_rate": 0.5
+  }
+}

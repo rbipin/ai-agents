@@ -1,0 +1,17 @@
+{
+  "eval_id": 0,
+  "eval_name": "war-story-ci",
+  "prompt": "War story: CI pipeline got 3x slower over 6 months unnoticed (40 min builds). Root cause: Docker layer cache hit rate near zero after COPY reorder in a refactor. Fix: deps before source copy + cache-hit-rate dashboard metric. 40 min -> 12 min. Lesson: slow degradation invisible without metrics. Audience: mid-level devs owning CI. Platform: dev.to.",
+  "assertions": [
+    "Plan identifies a plausible search phrase — a query a CI-owning dev would actually type (e.g. about slow docker builds / CI layer cache)",
+    "The recommended title contains the search phrase or a close natural variant, without reading as keyword-contorted",
+    "SEO packet delivered with a meta description of roughly 120-170 characters that accurately pitches the post",
+    "SEO packet includes a short readable hyphenated URL slug derived from the search phrase",
+    "Any [IMAGE] placeholders include alt text describing the image and a descriptive filename (not IMG_001 or generic)",
+    "SEO packet or editor's notes mention setting the canonical URL when cross-posting",
+    "No keyword stuffing: the search phrase does not repeat unnaturally through the body (reads people-first)",
+    "Story-first opening dropping the reader into the incident; facts traceable to notes (3x, 6 months, 40->12 min, COPY reorder); gaps marked [FILL]",
+    "Three strategy-diverse titles with a recommended pick and reason",
+    "No banned phrases or AI-tells; ending has concrete next action and an engagement question for dev.to"
+  ]
+}

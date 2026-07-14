@@ -4,26 +4,73 @@
     {
       "id": 0,
       "prompt": "Follow the blog-editor skill to write a technical blog post from my notes. I can't answer interview questions right now, so work through all the phases autonomously: make reasonable assumptions, self-approve the plan (show it), and use [FILL: ...] markers for anything missing. My idea + raw notes: 'Want to write about how our CI pipeline got 3x slower over 6 months and nobody noticed until a new hire asked why builds take 40 minutes. Root cause: our Docker layer cache hit rate had silently dropped to near zero because someone reordered the Dockerfile COPY commands in a refactor. Fixed it by moving dependency install before source copy and adding a cache-hit-rate metric to our dashboard. Builds went from 40 min back to 12 min. Lesson: slow degradation is invisible without metrics; humans normalize slowness. Audience: mid-level devs who own CI pipelines. Platform: dev.to.'",
-      "expected_output": "A publish-ready dev.to post with 3 strategy-diverse titles (one recommended), concrete subheadings, story-first opening, honest bold title promise, all facts from notes",
-      "files": []
+      "expected_output": "A publish-ready dev.to post with 3 strategy-diverse titles (one recommended), concrete subheadings, story-first opening, honest bold title promise, all facts from notes, plus an SEO packet (search phrase, meta description, URL slug, canonical note)",
+      "files": [],
+      "assertions": [
+        "Plan identifies a plausible search phrase — a query a CI-owning dev would actually type (e.g. about slow docker builds / CI layer cache)",
+        "The recommended title contains the search phrase or a close natural variant, without reading as keyword-contorted",
+        "SEO packet delivered with a meta description of roughly 120-170 characters that accurately pitches the post",
+        "SEO packet includes a short readable hyphenated URL slug derived from the search phrase",
+        "Any [IMAGE] placeholders include alt text describing the image and a descriptive filename (not IMG_001 or generic)",
+        "SEO packet or editor's notes mention setting the canonical URL when cross-posting",
+        "No keyword stuffing: the search phrase does not repeat unnaturally through the body (reads people-first)",
+        "Story-first opening dropping the reader into the incident; facts traceable to notes (3x, 6 months, 40->12 min, COPY reorder); gaps marked [FILL]",
+        "Three strategy-diverse titles with a recommended pick and reason",
+        "No banned phrases or AI-tells; ending has concrete next action and an engagement question for dev.to"
+      ]
     },
     {
       "id": 1,
       "prompt": "Follow the blog-editor skill to write a technical blog post from my notes. I can't answer interview questions right now, so work through all the phases autonomously: make reasonable assumptions, self-approve the plan (show it), and use [FILL: ...] markers for anything missing. My idea + raw notes: 'Opinion piece: most teams should NOT adopt microservices. After consulting for a dozen mid-size companies over 5 years, I've seen maybe 2 that actually needed them. Common pattern: 8-person team, one product, splits into 15 services, then spends 40% of engineering time on infra plumbing (service mesh, distributed tracing, contract tests) instead of features. Monolith with good module boundaries gets you 90% of the benefit. The real reasons teams adopt: resume-driven development and conference-talk envy. When microservices DO make sense: independent scaling needs, genuinely separate teams (20+ engineers), different compliance domains. Audience: engineering leads and staff engineers at mid-size companies. Platform: dev.to.'",
-      "expected_output": "An opinion post opening with a bold claim or question (no incident story available), all claims backed by numbers from notes, ending with concrete next action plus engagement question, 3 strategy-diverse titles",
-      "files": []
+      "expected_output": "An opinion post opening with a bold claim or question, all claims backed by numbers from notes, ending with concrete next action plus engagement question, 3 strategy-diverse titles, plus an SEO packet (search phrase, meta description, URL slug, canonical note)",
+      "files": [],
+      "assertions": [
+        "Plan identifies a plausible search phrase (e.g. microservices vs monolith / should we adopt microservices) OR explicitly reasons about the SEO layer for an opinion piece",
+        "The recommended title contains the search phrase or a close natural variant, without reading as keyword-contorted",
+        "SEO packet delivered with a meta description of roughly 120-170 characters that accurately pitches the post",
+        "SEO packet includes a short readable hyphenated URL slug",
+        "SEO packet or editor's notes mention setting the canonical URL when cross-posting",
+        "No keyword stuffing: 'microservices' and related phrases appear naturally, not repeated mechanically",
+        "Opens with a bold claim or provocative question (no incident available); claims backed by numbers from notes (dozen companies, 5 years, 40%, 90%, 20+); steelmans the other side (when microservices DO make sense)",
+        "Three strategy-diverse titles with a recommended pick and reason",
+        "No banned phrases or AI-tells; ending has concrete next action and an engagement question for dev.to"
+      ]
     },
     {
       "id": 2,
       "prompt": "Follow the blog-editor skill to write a blog post from my notes. I can't answer interview questions right now, so work through all the phases autonomously: make reasonable assumptions, self-approve the plan (show it), and use [FILL: ...] markers for anything missing. My idea + raw notes: 'TIL: git bisect can run automatically with git bisect run <script>. Spent 3 hours yesterday manually checking out commits to find which of ~200 commits broke our staging deploy. A teammate showed me you can write a small test script that exits 0 on good / non-zero on bad, and git bisect run does the whole binary search for you. Found the culprit commit in about 4 minutes and 8 automatic steps. The script just curl'd the health endpoint after a local build. Audience: any developer. Platform: dev.to.'",
-      "expected_output": "A TIL post of ~300-600 words, humble generous tone, one nugget, fresh-eyes review evidence, next action + engagement question",
-      "files": []
+      "expected_output": "A TIL post of ~300-600 words, humble generous tone, one nugget, fresh-eyes review evidence, next action + engagement question, plus an SEO packet (search phrase, meta description, URL slug, canonical note)",
+      "files": [],
+      "assertions": [
+        "Plan identifies a plausible search phrase (e.g. 'git bisect run automate' / 'find breaking commit automatically')",
+        "The recommended title contains the search phrase or a close natural variant, without reading as keyword-contorted",
+        "SEO packet delivered with a meta description of roughly 120-170 characters that accurately pitches the post",
+        "SEO packet includes a short readable hyphenated URL slug",
+        "SEO packet or editor's notes mention setting the canonical URL when cross-posting",
+        "No keyword stuffing: 'git bisect' appears naturally where needed, not repeated mechanically",
+        "Post body is roughly 300-600 words (TIL exception), humble generous tone, one nugget, not padded to 1000+",
+        "Facts traceable to notes (3 hours, ~200 commits, 4 minutes, 8 steps, exit 0/non-zero, curl health endpoint); gaps marked [FILL]",
+        "Three strategy-diverse titles with a recommended pick and reason",
+        "No banned phrases or AI-tells; ending has concrete next action and an engagement question for dev.to"
+      ]
     },
     {
       "id": 3,
       "prompt": "Follow the blog-editor skill to write a blog post from my notes. I can't answer interview questions right now, so work through all the phases autonomously: make reasonable assumptions, self-approve the plan (show it), and use [FILL: ...] markers for anything missing. My idea + raw notes: 'Want to showcase my open-source CLI tool envdiff that I built over a few weekends. It diffs environment configs across deployment stages (dev/staging/prod) and flags drift — missing vars, type mismatches, suspicious values like localhost in prod. Built it after we shipped a prod incident caused by a missing REDIS_URL in prod that existed in staging. It's ~800 lines of Go, single binary, no deps. 340 GitHub stars in 2 months. Known limitations: only works with .env files and JSON configs right now, no YAML support yet, and secrets scanning is basic regex. Want people to try it and contribute. Audience: DevOps engineers and backend devs. Platform: dev.to.'",
-      "expected_output": "A showcase post leading with the reader's problem, limitations stated openly, honest enthusiasm, try/contribute CTA without star-begging, fresh-eyes review evidence",
-      "files": []
+      "expected_output": "A showcase post leading with the reader's problem, limitations stated openly, honest enthusiasm, try/contribute CTA without star-begging, fresh-eyes review evidence, plus an SEO packet (search phrase, meta description, URL slug, canonical note)",
+      "files": [],
+      "assertions": [
+        "Plan identifies a plausible search phrase (e.g. 'diff env files between environments' / 'environment config drift tool')",
+        "The recommended title contains the search phrase or a close natural variant, without reading as keyword-contorted",
+        "SEO packet delivered with a meta description of roughly 120-170 characters that accurately pitches the post",
+        "SEO packet includes a short readable hyphenated URL slug",
+        "Repo/tool links use descriptive anchor text, not 'click here' or bare URLs pasted as anchors",
+        "SEO packet or editor's notes mention setting the canonical URL when cross-posting",
+        "Leads with the reader's problem (config drift / REDIS_URL incident), not tool features; limitations (.env/JSON only, no YAML, regex secrets) stated openly",
+        "Facts traceable to notes (800 lines Go, single binary, 340 stars/2 months); gaps marked [FILL]",
+        "Three strategy-diverse titles with a recommended pick and reason",
+        "No banned phrases or AI-tells; try/contribute CTA without star-begging; engagement question for dev.to"
+      ]
     }
   ]
 }

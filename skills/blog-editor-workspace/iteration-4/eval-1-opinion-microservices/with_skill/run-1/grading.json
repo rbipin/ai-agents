@@ -1,0 +1,55 @@
+{
+  "expectations": [
+    {
+      "text": "Plan identifies a plausible search phrase (e.g. microservices vs monolith / should we adopt microservices) OR explicitly reasons about the SEO layer for an opinion piece",
+      "passed": true,
+      "evidence": "Phase 3 plan states: 'Search phrase: \"when should you use microservices\" \u2014 anchors the title, main heading, and opening paragraphs.'"
+    },
+    {
+      "text": "The recommended title contains the search phrase or a close natural variant, without reading as keyword-contorted",
+      "passed": true,
+      "evidence": "Recommended title 'Most Teams Don't Need Microservices (Here's the Math)' is a natural, non-contorted variant that reads fine as a headline, and the plan explicitly ties it to the search intent ('carries the search phrase's intent...implicitly in its framing')."
+    },
+    {
+      "text": "SEO packet delivered with a meta description of roughly 120-170 characters that accurately pitches the post",
+      "passed": true,
+      "evidence": "Meta description: 'After 5 years consulting for a dozen mid-size companies, I've seen 2 that needed microservices. Here's the concrete test to know if you're one of them.' \u2014 labeled as 152 characters and accurately pitches the post's content."
+    },
+    {
+      "text": "SEO packet includes a short readable hyphenated URL slug",
+      "passed": true,
+      "evidence": "URL slug: `most-teams-dont-need-microservices` \u2014 short, readable, hyphenated."
+    },
+    {
+      "text": "SEO packet or editor's notes mention setting the canonical URL when cross-posting",
+      "passed": true,
+      "evidence": "Canonical note: 'If this is cross-posted anywhere beyond dev.to (personal blog, Medium, etc.), set the canonical URL to wherever it's published first so the copies don't compete with each other in search.'"
+    },
+    {
+      "text": "No keyword stuffing: 'microservices' and related phrases appear naturally, not repeated mechanically",
+      "passed": true,
+      "evidence": "The word 'microservices' appears in varied natural contexts throughout the post (pattern description, steelman section, comparison table) without mechanical repetition; reviewer explicitly 'confirmed no...keyword stuffing.'"
+    },
+    {
+      "text": "Opens with a bold claim or provocative question (no incident available); claims backed by numbers from notes (dozen companies, 5 years, 40%, 90%, 20+); steelmans the other side (when microservices DO make sense); claims backed by numbers from notes",
+      "passed": true,
+      "evidence": "Opens with 'In five years consulting for a dozen mid-size companies, I've seen exactly two that actually needed microservices.' Uses 40% (plumbing time), 90% ('monolith gets you 90% of the benefit'), 20+ engineers, and has a full steelman section 'When microservices genuinely earn their keep.'"
+    },
+    {
+      "text": "Three strategy-diverse titles with a recommended pick and reason",
+      "passed": true,
+      "evidence": "Phase 6 lists three titles with distinct strategies (bold promise, number+stat, why+specific-promise) and recommends #1 with a stated reason ('boldest without overreaching...carries the search phrase's intent')."
+    },
+    {
+      "text": "No banned phrases or AI-tells; ending has concrete next action and an engagement question for dev.to",
+      "passed": true,
+      "evidence": "Reviewer 'confirmed no banned phrases, no keyword stuffing, and natural paragraph rhythm'; ending gives a concrete action ('drawing module boundaries inside the app you already have') plus an engagement question ('What's the split you're most tempted to make right now...?')."
+    }
+  ],
+  "summary": {
+    "passed": 9,
+    "failed": 0,
+    "total": 9,
+    "pass_rate": 1.0
+  }
+}

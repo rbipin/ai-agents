@@ -1,0 +1,55 @@
+{
+  "expectations": [
+    {
+      "text": "Plan identifies a plausible search phrase (e.g. microservices vs monolith / should we adopt microservices) OR explicitly reasons about the SEO layer for an opinion piece",
+      "passed": false,
+      "evidence": "Phase 1 (Editor's Gate) and Phase 3 (Writing Plan) discuss angle, differentiation, and reader targeting but never mention a search phrase, keyword, or any SEO-layer reasoning."
+    },
+    {
+      "text": "The recommended title contains the search phrase or a close natural variant, without reading as keyword-contorted",
+      "passed": false,
+      "evidence": "No search phrase was ever identified, so the recommended title ('Most Teams Don't Need Microservices (And Yours Probably Doesn't Either)') cannot be evaluated against one; the skill has no SEO title-matching step."
+    },
+    {
+      "text": "SEO packet delivered with a meta description of roughly 120-170 characters that accurately pitches the post",
+      "passed": false,
+      "evidence": "No SEO packet or meta description appears anywhere in the document; the closest artifact is a 'One-line summary for social sharing' which is not framed or sized as a meta description."
+    },
+    {
+      "text": "SEO packet includes a short readable hyphenated URL slug",
+      "passed": false,
+      "evidence": "No URL slug is provided anywhere in the deliverable."
+    },
+    {
+      "text": "SEO packet or editor's notes mention setting the canonical URL when cross-posting",
+      "passed": false,
+      "evidence": "Editor's Notes cover [FILL] items, reviewer flags, visuals, word count, and platform notes, but contain no mention of canonical URL or cross-posting."
+    },
+    {
+      "text": "No keyword stuffing: 'microservices' and related phrases appear naturally, not repeated mechanically",
+      "passed": true,
+      "evidence": "The term is used naturally and varied with synonyms like 'distributed-systems tax', 'network hop', 'service mesh', and '15-service sprawl' rather than being mechanically repeated."
+    },
+    {
+      "text": "Opens with a bold claim or provocative question (no incident available); claims backed by numbers from notes (dozen companies, 5 years, 40%, 90%, 20+); steelmans the other side (when microservices DO make sense)",
+      "passed": true,
+      "evidence": "Opens with \"Here's a number that should bother you: out of a dozen mid-size companies I've consulted for over the last five years, exactly two actually needed microservices,\" uses 40% and 20+ figures, and includes a dedicated steelman section 'The two that got it right'."
+    },
+    {
+      "text": "Three strategy-diverse titles with a recommended pick and reason",
+      "passed": true,
+      "evidence": "Three titles given with distinct strategies (direct address, personal-result number, trigger-word+number), and the first is marked Recommended with an explicit reason ('confident without overpromising, names the reader directly...')."
+    },
+    {
+      "text": "No banned phrases or AI-tells; ending has concrete next action and an engagement question for dev.to",
+      "passed": true,
+      "evidence": "Ends with a concrete action ('Pick your most tangled module... draw its actual dependency graph') followed by an engagement question ('What's the messiest module in your codebase right now, and what's actually stopping you from drawing a clean boundary around it?'); no stock AI-tell phrases detected."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 5,
+    "total": 9,
+    "pass_rate": 0.4444
+  }
+}

@@ -1,0 +1,600 @@
+{
+  "metadata": {
+    "skill_name": "blog-editor",
+    "skill_path": "<path/to/skill>",
+    "executor_model": "<model-name>",
+    "analyzer_model": "<model-name>",
+    "timestamp": "2026-07-14T03:52:14Z",
+    "evals_run": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "runs_per_configuration": 3
+  },
+  "runs": [
+    {
+      "eval_id": 0,
+      "configuration": "old_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.4,
+        "passed": 4,
+        "failed": 6,
+        "total": 10,
+        "time_seconds": 578.2,
+        "tokens": 43316,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Plan identifies a plausible search phrase \u2014 a query a CI-owning dev would actually type (e.g. about slow docker builds / CI layer cache)",
+          "passed": false,
+          "evidence": "The Writing Plan section defines archetype, hook, sections, takeaway, and visuals, but never identifies a search phrase or does any keyword/query research."
+        },
+        {
+          "text": "The recommended title contains the search phrase or a close natural variant, without reading as keyword-contorted",
+          "passed": false,
+          "evidence": "No search phrase was ever identified (see assertion 1), so the recommended title 'The CI Pipeline That Got 3x Slower and Nobody Noticed' cannot be evaluated as matching one; it is a curiosity-driven title, not a search-derived one."
+        },
+        {
+          "text": "SEO packet delivered with a meta description of roughly 120-170 characters that accurately pitches the post",
+          "passed": false,
+          "evidence": "No meta description or SEO packet exists anywhere in the document; only a 'One-line summary for sharing on social' is provided, which is a social blurb, not a meta description."
+        },
+        {
+          "text": "SEO packet includes a short readable hyphenated URL slug derived from the search phrase",
+          "passed": false,
+          "evidence": "No URL slug of any kind appears in the document."
+        },
+        {
+          "text": "Any [IMAGE] placeholders include alt text describing the image and a descriptive filename (not IMG_001 or generic)",
+          "passed": false,
+          "evidence": "No [IMAGE: ...] placeholders remain in the final post; Editor's Notes state a redundant one was silently removed, and no alt text or filenames are specified anywhere."
+        },
+        {
+          "text": "SEO packet or editor's notes mention setting the canonical URL when cross-posting",
+          "passed": false,
+          "evidence": "Editor's Notes cover [FILL] items, reviewer flags, and visuals to create, but never mention canonical URLs or cross-posting."
+        },
+        {
+          "text": "No keyword stuffing: the search phrase does not repeat unnaturally through the body (reads people-first)",
+          "passed": true,
+          "evidence": "The body reads as natural prose throughout (e.g. 'Docker builds are fast when they can reuse layers from a previous build') with no repeated keyword phrase forced into the text."
+        },
+        {
+          "text": "Story-first opening dropping the reader into the incident; facts traceable to notes (3x, 6 months, 40->12 min, COPY reorder); gaps marked [FILL]",
+          "passed": true,
+          "evidence": "Opens with 'A new hire asked it on his second week: \"Why do our builds take 40 minutes?\"' and includes the 6-month drift, 3x slowdown, 40\u219212 min fix, and COPY reorder cause, with two clearly marked `[FILL: ...]` gaps."
+        },
+        {
+          "text": "Three strategy-diverse titles with a recommended pick and reason",
+          "passed": true,
+          "evidence": "Three titles are given with distinct strategies (bold-claim/curiosity, 'why'-provocation, 'how'+number) and title 1 is starred 'Recommended' with an explicit reason tied to the audience."
+        },
+        {
+          "text": "No banned phrases or AI-tells; ending has concrete next action and an engagement question for dev.to",
+          "passed": true,
+          "evidence": "Reviewer flags note 'no banned AI-tell phrases'; the post ends with a concrete action ('Pick one number that's allowed to drift unnoticed today, and put a metric on it') and an engagement question ('What's the slowest part of your pipeline that nobody's questioned in months?')."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 1,
+      "configuration": "old_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.4444,
+        "passed": 4,
+        "failed": 5,
+        "total": 9,
+        "time_seconds": 281.7,
+        "tokens": 53833,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Plan identifies a plausible search phrase (e.g. microservices vs monolith / should we adopt microservices) OR explicitly reasons about the SEO layer for an opinion piece",
+          "passed": false,
+          "evidence": "Phase 1 (Editor's Gate) and Phase 3 (Writing Plan) discuss angle, differentiation, and reader targeting but never mention a search phrase, keyword, or any SEO-layer reasoning."
+        },
+        {
+          "text": "The recommended title contains the search phrase or a close natural variant, without reading as keyword-contorted",
+          "passed": false,
+          "evidence": "No search phrase was ever identified, so the recommended title ('Most Teams Don't Need Microservices (And Yours Probably Doesn't Either)') cannot be evaluated against one; the skill has no SEO title-matching step."
+        },
+        {
+          "text": "SEO packet delivered with a meta description of roughly 120-170 characters that accurately pitches the post",
+          "passed": false,
+          "evidence": "No SEO packet or meta description appears anywhere in the document; the closest artifact is a 'One-line summary for social sharing' which is not framed or sized as a meta description."
+        },
+        {
+          "text": "SEO packet includes a short readable hyphenated URL slug",
+          "passed": false,
+          "evidence": "No URL slug is provided anywhere in the deliverable."
+        },
+        {
+          "text": "SEO packet or editor's notes mention setting the canonical URL when cross-posting",
+          "passed": false,
+          "evidence": "Editor's Notes cover [FILL] items, reviewer flags, visuals, word count, and platform notes, but contain no mention of canonical URL or cross-posting."
+        },
+        {
+          "text": "No keyword stuffing: 'microservices' and related phrases appear naturally, not repeated mechanically",
+          "passed": true,
+          "evidence": "The term is used naturally and varied with synonyms like 'distributed-systems tax', 'network hop', 'service mesh', and '15-service sprawl' rather than being mechanically repeated."
+        },
+        {
+          "text": "Opens with a bold claim or provocative question (no incident available); claims backed by numbers from notes (dozen companies, 5 years, 40%, 90%, 20+); steelmans the other side (when microservices DO make sense)",
+          "passed": true,
+          "evidence": "Opens with \"Here's a number that should bother you: out of a dozen mid-size companies I've consulted for over the last five years, exactly two actually needed microservices,\" uses 40% and 20+ figures, and includes a dedicated steelman section 'The two that got it right'."
+        },
+        {
+          "text": "Three strategy-diverse titles with a recommended pick and reason",
+          "passed": true,
+          "evidence": "Three titles given with distinct strategies (direct address, personal-result number, trigger-word+number), and the first is marked Recommended with an explicit reason ('confident without overpromising, names the reader directly...')."
+        },
+        {
+          "text": "No banned phrases or AI-tells; ending has concrete next action and an engagement question for dev.to",
+          "passed": true,
+          "evidence": "Ends with a concrete action ('Pick your most tangled module... draw its actual dependency graph') followed by an engagement question ('What's the messiest module in your codebase right now, and what's actually stopping you from drawing a clean boundary around it?'); no stock AI-tell phrases detected."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 2,
+      "configuration": "old_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.5,
+        "passed": 5,
+        "failed": 5,
+        "total": 10,
+        "time_seconds": 192.1,
+        "tokens": 9,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Plan identifies a plausible search phrase (e.g. 'git bisect run automate' / 'find breaking commit automatically')",
+          "passed": false,
+          "evidence": "The Writing Plan section has no 'search phrase' or SEO/keyword-research field at all; it only covers verdict, archetype, audience, hook, structure, takeaway, visuals, and assumptions."
+        },
+        {
+          "text": "The recommended title contains the search phrase or a close natural variant, without reading as keyword-contorted",
+          "passed": false,
+          "evidence": "No search phrase was ever identified, so there is nothing for the recommended title ('From 3 hours to 4 minutes: let git bisect run do the bug hunt') to be checked against; this is a byproduct of assertion 1's absence, not an intentional SEO title choice."
+        },
+        {
+          "text": "SEO packet delivered with a meta description of roughly 120-170 characters that accurately pitches the post",
+          "passed": false,
+          "evidence": "No meta description appears anywhere in the document; the closest content is the dev.to 'Suggested tags' line, which is not a meta description."
+        },
+        {
+          "text": "SEO packet includes a short readable hyphenated URL slug",
+          "passed": false,
+          "evidence": "No URL slug is proposed anywhere in the Writing Plan, Title Options, or Editor's Notes sections."
+        },
+        {
+          "text": "SEO packet or editor's notes mention setting the canonical URL when cross-posting",
+          "passed": false,
+          "evidence": "Editor's Notes covers [FILL] markers, honesty note, fresh-eyes review changes, and dev.to specifics (tags, cover image, word count) but never mentions canonical URL or cross-posting."
+        },
+        {
+          "text": "No keyword stuffing: 'git bisect' appears naturally where needed, not repeated mechanically",
+          "passed": true,
+          "evidence": "'git bisect' / 'git bisect run' appear only where contextually needed (title, intro anecdote, code block, explanation) and the prose otherwise uses natural referents like 'the tool', 'it', or 'the script', with no mechanical repetition."
+        },
+        {
+          "text": "Post body is roughly 300-600 words (TIL exception), humble generous tone, one nugget, not padded to 1000+",
+          "passed": true,
+          "evidence": "Editor's Notes states 'Word count: ~470 (within TIL target of 300\u2013600)', and the tone throughout ('Then you go get coffee.', 'Future you gets to drink the coffee while git does the search.') is humble/generous with a single core nugget (git bisect run) rather than padded content."
+        },
+        {
+          "text": "Facts traceable to notes (3 hours, ~200 commits, 4 minutes, 8 steps, exit 0/non-zero, curl health endpoint); gaps marked [FILL]",
+          "passed": true,
+          "evidence": "The post states '3 hours', '~200 commits', 'about four minutes', 'Eight automatic steps', the full exit-code contract (0/1-127/125/>127), and 'curled the health endpoint'; unknowns like build command, launch command, health endpoint URL, and last-known-good ref are explicitly marked '[FILL]'."
+        },
+        {
+          "text": "Three strategy-diverse titles with a recommended pick and reason",
+          "passed": true,
+          "evidence": "Three titles are given with distinct strategies (numbers/outcome-driven, classic TIL curiosity framing, imperative pain-point framing), and title 1 is marked '\u2190 recommended: concrete outcome + numbers, the post's strongest asset'."
+        },
+        {
+          "text": "No banned phrases or AI-tells; ending has concrete next action and an engagement question for dev.to",
+          "passed": true,
+          "evidence": "No stock AI phrases like 'in today's fast-paced world' or 'let's dive in' appear; the ending gives a concrete next action ('write the tiny script *first*') followed by one engagement question ('What's the most time you've sunk into manually hunting a bad commit?')."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 3,
+      "configuration": "old_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.4,
+        "passed": 4,
+        "failed": 6,
+        "total": 10,
+        "time_seconds": 200.8,
+        "tokens": 44631,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Plan identifies a plausible search phrase (e.g. 'diff env files between environments' / 'environment config drift tool')",
+          "passed": false,
+          "evidence": "The writing plan (Phase 3) and title rationale discuss archetype, hook, and reader but never identify or name a target search phrase or keyword; no SEO/search planning step exists anywhere in the document."
+        },
+        {
+          "text": "The recommended title contains the search phrase or a close natural variant, without reading as keyword-contorted",
+          "passed": false,
+          "evidence": "No search phrase was ever identified (see #1), so the recommended title 'envdiff: the CLI that would've saved us from a 2 a.m. Redis outage' cannot be evaluated as containing one; it is a story-led title, not a search-oriented one."
+        },
+        {
+          "text": "SEO packet delivered with a meta description of roughly 120-170 characters that accurately pitches the post",
+          "passed": false,
+          "evidence": "No meta description or SEO packet appears anywhere in the deliverable; only a 'one-line summary for social sharing' is provided, which is a different artifact and not character-length-constrained for meta purposes."
+        },
+        {
+          "text": "SEO packet includes a short readable hyphenated URL slug",
+          "passed": false,
+          "evidence": "No URL slug of any kind is present in the post, editor's notes, or any other section."
+        },
+        {
+          "text": "Repo/tool links use descriptive anchor text, not 'click here' or bare URLs pasted as anchors",
+          "passed": false,
+          "evidence": "The repo link is left as a raw placeholder 'Repo: `[FILL: GitHub URL]`' with no anchor text or markdown link formatting at all, so descriptive-anchor-text practice is not demonstrated."
+        },
+        {
+          "text": "SEO packet or editor's notes mention setting the canonical URL when cross-posting",
+          "passed": false,
+          "evidence": "Editor's Notes cover FILL items, reviewer flags, visuals, and a social summary, but there is no mention of canonical URLs or cross-posting anywhere in the document."
+        },
+        {
+          "text": "Leads with the reader's problem (config drift / REDIS_URL incident), not tool features; limitations (.env/JSON only, no YAML, regex secrets) stated openly",
+          "passed": true,
+          "evidence": "The post opens with 'We shipped a production incident because REDIS_URL existed in staging and didn't exist in prod' and includes a dedicated 'What it doesn't do yet' section stating 'No YAML support yet... It only understands .env files and JSON configs' and 'Secrets scanning is basic regex.'"
+        },
+        {
+          "text": "Facts traceable to notes (800 lines Go, single binary, 340 stars/2 months); gaps marked [FILL]",
+          "passed": true,
+          "evidence": "The post states 'About 800 lines of Go... single binary. No dependencies' and 'envdiff has picked up 340 GitHub stars in about two months,' while unverifiable specifics (incident duration, install command, repo URL) are explicitly marked with `[FILL: ...]` placeholders."
+        },
+        {
+          "text": "Three strategy-diverse titles with a recommended pick and reason",
+          "passed": true,
+          "evidence": "Three distinct titles are given (story-led incident title, why-question title, and stats-forward title), each with a rationale, and '#1' is explicitly recommended with a stated reason ('keeps the archetype's promise... creating the most curiosity')."
+        },
+        {
+          "text": "No banned phrases or AI-tells; try/contribute CTA without star-begging; engagement question for dev.to",
+          "passed": true,
+          "evidence": "The CTA section invites readers to 'Try it, break it, tell me what's missing' and solicits PRs without asking for stars, and it closes with an engagement question: 'What's the smallest env var that's ever caused you the biggest outage?'; editor's notes also state the reviewer 'found no banned AI-tell phrases or grammar issues.'"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 0,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.9,
+        "passed": 9,
+        "failed": 1,
+        "total": 10,
+        "time_seconds": 159.4,
+        "tokens": 41950,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Plan identifies a plausible search phrase \u2014 a query a CI-owning dev would actually type (e.g. about slow docker builds / CI layer cache)",
+          "passed": true,
+          "evidence": "Plan states: \"Search phrase: 'docker layer cache slow ci builds' \u2014 a mid-level dev debugging a slow pipeline would plausibly search this.\""
+        },
+        {
+          "text": "The recommended title contains the search phrase or a close natural variant, without reading as keyword-contorted",
+          "passed": false,
+          "evidence": "Recommended title #1, \"How a One-Line Dockerfile Change Cost Us 28 Minutes of CI Time,\" omits both 'cache' and 'layer' from the search phrase; the plan itself notes title #3 ('The Docker Layer Cache Bug That Took Six Months to Notice') is the 'closest match to the search phrase,' but that title was not the recommended pick."
+        },
+        {
+          "text": "SEO packet delivered with a meta description of roughly 120-170 characters that accurately pitches the post",
+          "passed": true,
+          "evidence": "Meta description is 158 characters: \"Our CI builds crept from 12 to 40 minutes over 6 months and nobody noticed. The cause: a reordered Dockerfile line that silently broke our Docker layer cache.\""
+        },
+        {
+          "text": "SEO packet includes a short readable hyphenated URL slug derived from the search phrase",
+          "passed": true,
+          "evidence": "URL slug given as `docker-layer-cache-ci-builds-slow`, directly derived from the search phrase."
+        },
+        {
+          "text": "Any [IMAGE] placeholders include alt text describing the image and a descriptive filename (not IMG_001 or generic)",
+          "passed": true,
+          "evidence": "Both placeholders include full alt text and descriptive filenames, e.g. \"alt: Side-by-side flowchart showing how reordering COPY and RUN npm ci...| file: docker-layer-cache-order-before-after.png\"."
+        },
+        {
+          "text": "SEO packet or editor's notes mention setting the canonical URL when cross-posting",
+          "passed": true,
+          "evidence": "\"Canonical note: If cross-posting this beyond dev.to (personal blog, Medium, etc.), publish on one platform first and set the rel=canonical tag on the others to point back to it.\""
+        },
+        {
+          "text": "No keyword stuffing: the search phrase does not repeat unnaturally through the body (reads people-first)",
+          "passed": true,
+          "evidence": "Independent review phase confirms: \"no unnatural repetition of the search phrase; paragraph rhythm varies naturally,\" and the body itself uses varied phrasing (cache hit rate, Docker layer cache, build duration) rather than repeating the exact search phrase."
+        },
+        {
+          "text": "Story-first opening dropping the reader into the incident; facts traceable to notes (3x, 6 months, 40->12 min, COPY reorder); gaps marked [FILL]",
+          "passed": true,
+          "evidence": "Opens with \"A new hire had been on the team for two weeks when they asked... 'Why does our build take 40 minutes?'\"; numbers (12->40 min, 6 months, 3x, COPY reorder) all present, and unverified specifics are marked e.g. \"[FILL: exact before/after cache-hit-rate percentages...]\"."
+        },
+        {
+          "text": "Three strategy-diverse titles with a recommended pick and reason",
+          "passed": true,
+          "evidence": "Three titles given with distinct strategies (bold promise+number, why+number, descriptive/keyword-forward), each with a rationale, and #1 explicitly marked \"Recommended\" with reasoning."
+        },
+        {
+          "text": "No banned phrases or AI-tells; ending has concrete next action and an engagement question for dev.to",
+          "passed": true,
+          "evidence": "Review phase states \"none of the banned phrases found\"; post ends with \"Go check your own Docker cache hit rate this week... the cheapest CI fix you'll make all quarter.\" followed by the engagement question \"What silent regression has your team normalized without noticing?\""
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 1,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 9,
+        "failed": 0,
+        "total": 9,
+        "time_seconds": 257.7,
+        "tokens": 54754,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Plan identifies a plausible search phrase (e.g. microservices vs monolith / should we adopt microservices) OR explicitly reasons about the SEO layer for an opinion piece",
+          "passed": true,
+          "evidence": "Phase 3 plan states: 'Search phrase: \"when should you use microservices\" \u2014 anchors the title, main heading, and opening paragraphs.'"
+        },
+        {
+          "text": "The recommended title contains the search phrase or a close natural variant, without reading as keyword-contorted",
+          "passed": true,
+          "evidence": "Recommended title 'Most Teams Don't Need Microservices (Here's the Math)' is a natural, non-contorted variant that reads fine as a headline, and the plan explicitly ties it to the search intent ('carries the search phrase's intent...implicitly in its framing')."
+        },
+        {
+          "text": "SEO packet delivered with a meta description of roughly 120-170 characters that accurately pitches the post",
+          "passed": true,
+          "evidence": "Meta description: 'After 5 years consulting for a dozen mid-size companies, I've seen 2 that needed microservices. Here's the concrete test to know if you're one of them.' \u2014 labeled as 152 characters and accurately pitches the post's content."
+        },
+        {
+          "text": "SEO packet includes a short readable hyphenated URL slug",
+          "passed": true,
+          "evidence": "URL slug: `most-teams-dont-need-microservices` \u2014 short, readable, hyphenated."
+        },
+        {
+          "text": "SEO packet or editor's notes mention setting the canonical URL when cross-posting",
+          "passed": true,
+          "evidence": "Canonical note: 'If this is cross-posted anywhere beyond dev.to (personal blog, Medium, etc.), set the canonical URL to wherever it's published first so the copies don't compete with each other in search.'"
+        },
+        {
+          "text": "No keyword stuffing: 'microservices' and related phrases appear naturally, not repeated mechanically",
+          "passed": true,
+          "evidence": "The word 'microservices' appears in varied natural contexts throughout the post (pattern description, steelman section, comparison table) without mechanical repetition; reviewer explicitly 'confirmed no...keyword stuffing.'"
+        },
+        {
+          "text": "Opens with a bold claim or provocative question (no incident available); claims backed by numbers from notes (dozen companies, 5 years, 40%, 90%, 20+); steelmans the other side (when microservices DO make sense); claims backed by numbers from notes",
+          "passed": true,
+          "evidence": "Opens with 'In five years consulting for a dozen mid-size companies, I've seen exactly two that actually needed microservices.' Uses 40% (plumbing time), 90% ('monolith gets you 90% of the benefit'), 20+ engineers, and has a full steelman section 'When microservices genuinely earn their keep.'"
+        },
+        {
+          "text": "Three strategy-diverse titles with a recommended pick and reason",
+          "passed": true,
+          "evidence": "Phase 6 lists three titles with distinct strategies (bold promise, number+stat, why+specific-promise) and recommends #1 with a stated reason ('boldest without overreaching...carries the search phrase's intent')."
+        },
+        {
+          "text": "No banned phrases or AI-tells; ending has concrete next action and an engagement question for dev.to",
+          "passed": true,
+          "evidence": "Reviewer 'confirmed no banned phrases, no keyword stuffing, and natural paragraph rhythm'; ending gives a concrete action ('drawing module boundaries inside the app you already have') plus an engagement question ('What's the split you're most tempted to make right now...?')."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 2,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 10,
+        "failed": 0,
+        "total": 10,
+        "time_seconds": 160.3,
+        "tokens": 0,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Plan identifies a plausible search phrase (e.g. 'git bisect run automate' / 'find breaking commit automatically')",
+          "passed": true,
+          "evidence": "Plan states: \"Search phrase the post targets: 'automate git bisect' / 'git bisect run script'.\""
+        },
+        {
+          "text": "The recommended title contains the search phrase or a close natural variant, without reading as keyword-contorted",
+          "passed": true,
+          "evidence": "Recommended title \"TIL: git bisect Can Run the Whole Hunt for You\" naturally contains 'git bisect' and a natural variant of 'run'/'automate' (\"Can Run the Whole Hunt\") without contorted phrasing."
+        },
+        {
+          "text": "SEO packet delivered with a meta description of roughly 120-170 characters that accurately pitches the post",
+          "passed": true,
+          "evidence": "Meta description \"Spent 3 hours manually bisecting ~200 commits. `git bisect run` + a 5-line script found the bad commit in 4 minutes. Here's the whole setup.\" is 140 characters and accurately summarizes the post."
+        },
+        {
+          "text": "SEO packet includes a short readable hyphenated URL slug",
+          "passed": true,
+          "evidence": "Slug given as `til-git-bisect-run-automate-binary-search` \u2014 short, readable, hyphenated."
+        },
+        {
+          "text": "SEO packet or editor's notes mention setting the canonical URL when cross-posting",
+          "passed": true,
+          "evidence": "SEO packet states: \"Canonical URL: If cross-posting from a personal blog later, set `canonical_url` in the dev.to front matter.\""
+        },
+        {
+          "text": "No keyword stuffing: 'git bisect' appears naturally where needed, not repeated mechanically",
+          "passed": true,
+          "evidence": "'git bisect' / 'git bisect run' appears in section headers and code context tied to the narrative, not mechanically repeated throughout the body."
+        },
+        {
+          "text": "Post body is roughly 300-600 words (TIL exception), humble generous tone, one nugget, not padded to 1000+",
+          "passed": true,
+          "evidence": "Editor's Notes confirms \"~430 words for the post body \u2014 inside the 300\u2013600 TIL band\"; tone is humble (\"I knew git bisect... What I didn't know is...\") with a single central nugget (git bisect run)."
+        },
+        {
+          "text": "Facts traceable to notes (3 hours, ~200 commits, 4 minutes, 8 steps, exit 0/non-zero, curl health endpoint); gaps marked [FILL]",
+          "passed": true,
+          "evidence": "Post/plan include 3 hours, ~200 commits, 4 minutes, 8 steps (log\u2082200\u22488), exit 0/non-zero contract, and curl health endpoint; unresolved specifics are marked with `[FILL: ...]` (last-known-good ref, build/run commands, real health endpoint)."
+        },
+        {
+          "text": "Three strategy-diverse titles with a recommended pick and reason",
+          "passed": true,
+          "evidence": "Three titles given with distinct strategies (honest TIL framing, outcome-forward, numbers-led curiosity hook), with option 1 marked '(recommended \u2014 honest TIL framing, names the feature)'."
+        },
+        {
+          "text": "No banned phrases or AI-tells; ending has concrete next action and an engagement question for dev.to",
+          "passed": true,
+          "evidence": "Post ends with a concrete action (\"write the five-line check script first \u2014 or better, write a tiny check.sh for your project this week and stash it somewhere you'll find it mid-incident\") followed by the engagement question \"What's the longest you've spent manually hunting a bad commit before someone showed you a better way?\""
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 3,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 10,
+        "failed": 0,
+        "total": 10,
+        "time_seconds": 136.3,
+        "tokens": 39728,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Plan identifies a plausible search phrase (e.g. 'diff env files between environments' / 'environment config drift tool')",
+          "passed": true,
+          "evidence": "Phase 3 states: 'Search phrase: \"environment config drift detection tool\" (naturally covers \"diff env variables across environments\" too)'."
+        },
+        {
+          "text": "The recommended title contains the search phrase or a close natural variant, without reading as keyword-contorted",
+          "passed": true,
+          "evidence": "Recommended title 'How a Missing REDIS_URL Took Down Prod (and the CLI Tool I Built So It Wouldn't Happen Again)' reads as natural narrative prose, and the rationale explicitly notes it 'keeps the search phrase's intent (\"config drift,\" \"prod incident\") implicit in a way that reads human'."
+        },
+        {
+          "text": "SEO packet delivered with a meta description of roughly 120-170 characters that accurately pitches the post",
+          "passed": true,
+          "evidence": "Meta description: 'A missing REDIS_URL took down our prod checkout service. Here's envdiff, the open-source Go CLI I built to catch environment config drift before it ships.' noted as 153 chars, accurately summarizing the post."
+        },
+        {
+          "text": "SEO packet includes a short readable hyphenated URL slug",
+          "passed": true,
+          "evidence": "URL slug given as `envdiff-environment-config-drift-cli`."
+        },
+        {
+          "text": "Repo/tool links use descriptive anchor text, not 'click here' or bare URLs pasted as anchors",
+          "passed": true,
+          "evidence": "Links use anchor text like '[envdiff](...)', '[GitHub issue tracker](...)', and '[open an issue](...)' rather than 'click here' or raw URLs."
+        },
+        {
+          "text": "SEO packet or editor's notes mention setting the canonical URL when cross-posting",
+          "passed": true,
+          "evidence": "SEO Packet includes: 'Canonical note: If this post is cross-posted anywhere besides dev.to... set the canonical URL to wherever it lives first so the copies don't compete with each other in search.'"
+        },
+        {
+          "text": "Leads with the reader's problem (config drift / REDIS_URL incident), not tool features; limitations (.env/JSON only, no YAML, regex secrets) stated openly",
+          "passed": true,
+          "evidence": "Post opens with the Tuesday deploy / missing REDIS_URL incident before introducing envdiff; 'What it doesn't do yet' section states .env/JSON-only support, no YAML, and 'basic regex' secrets detection openly."
+        },
+        {
+          "text": "Facts traceable to notes (800 lines Go, single binary, 340 stars/2 months); gaps marked [FILL]",
+          "passed": true,
+          "evidence": "Post states 'about 800 lines of Go, one binary' and '340 GitHub stars in about two months'; repo URL and install command are marked `[FILL: ...]` as unresolved gaps."
+        },
+        {
+          "text": "Three strategy-diverse titles with a recommended pick and reason",
+          "passed": true,
+          "evidence": "Three titles given (narrative/incident-led, provocative claim, literal/keyword-forward) with '#1' recommended and an explicit reason ('genuine narrative pull... reads human')."
+        },
+        {
+          "text": "No banned phrases or AI-tells; try/contribute CTA without star-begging; engagement question for dev.to",
+          "passed": true,
+          "evidence": "No AI-tell phrases (e.g. 'delve', 'unleash', 'game-changer') found in the post; CTA is 'Try it before your next prod deploy' and 'open an issue' without any star-begging; closes with engagement question 'What's the closest your team has come to a REDIS_URL-shaped incident...'"
+        }
+      ],
+      "notes": []
+    }
+  ],
+  "run_summary": {
+    "old_skill": {
+      "pass_rate": {
+        "mean": 0.4361,
+        "stddev": 0.0475,
+        "min": 0.4,
+        "max": 0.5
+      },
+      "time_seconds": {
+        "mean": 313.2,
+        "stddev": 181.2146,
+        "min": 192.1,
+        "max": 578.2
+      },
+      "tokens": {
+        "mean": 35447.25,
+        "stddev": 24084.3231,
+        "min": 9,
+        "max": 53833
+      }
+    },
+    "with_skill": {
+      "pass_rate": {
+        "mean": 0.975,
+        "stddev": 0.05,
+        "min": 0.9,
+        "max": 1.0
+      },
+      "time_seconds": {
+        "mean": 178.425,
+        "stddev": 54.0047,
+        "min": 136.3,
+        "max": 257.7
+      },
+      "tokens": {
+        "mean": 34108.0,
+        "stddev": 23683.2877,
+        "min": 0,
+        "max": 54754
+      }
+    },
+    "delta": {
+      "pass_rate": "-0.54",
+      "time_seconds": "+134.8",
+      "tokens": "+1339"
+    }
+  },
+  "notes": []
+}

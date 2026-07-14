@@ -1,0 +1,17 @@
+{
+  "eval_id": 2,
+  "eval_name": "til-git-bisect",
+  "prompt": "TIL: git bisect run automates finding the breaking commit. 3 hours manual vs 4 minutes / 8 automatic steps across ~200 commits. Script exits 0 good / non-zero bad, curl'd health endpoint after local build. Audience: any developer. Platform: dev.to.",
+  "assertions": [
+    "Plan identifies a plausible search phrase (e.g. 'git bisect run automate' / 'find breaking commit automatically')",
+    "The recommended title contains the search phrase or a close natural variant, without reading as keyword-contorted",
+    "SEO packet delivered with a meta description of roughly 120-170 characters that accurately pitches the post",
+    "SEO packet includes a short readable hyphenated URL slug",
+    "SEO packet or editor's notes mention setting the canonical URL when cross-posting",
+    "No keyword stuffing: 'git bisect' appears naturally where needed, not repeated mechanically",
+    "Post body is roughly 300-600 words (TIL exception), humble generous tone, one nugget, not padded to 1000+",
+    "Facts traceable to notes (3 hours, ~200 commits, 4 minutes, 8 steps, exit 0/non-zero, curl health endpoint); gaps marked [FILL]",
+    "Three strategy-diverse titles with a recommended pick and reason",
+    "No banned phrases or AI-tells; ending has concrete next action and an engagement question for dev.to"
+  ]
+}

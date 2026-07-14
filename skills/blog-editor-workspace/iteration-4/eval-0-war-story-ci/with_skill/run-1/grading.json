@@ -1,0 +1,60 @@
+{
+  "expectations": [
+    {
+      "text": "Plan identifies a plausible search phrase \u2014 a query a CI-owning dev would actually type (e.g. about slow docker builds / CI layer cache)",
+      "passed": true,
+      "evidence": "Plan states: \"Search phrase: 'docker layer cache slow ci builds' \u2014 a mid-level dev debugging a slow pipeline would plausibly search this.\""
+    },
+    {
+      "text": "The recommended title contains the search phrase or a close natural variant, without reading as keyword-contorted",
+      "passed": false,
+      "evidence": "Recommended title #1, \"How a One-Line Dockerfile Change Cost Us 28 Minutes of CI Time,\" omits both 'cache' and 'layer' from the search phrase; the plan itself notes title #3 ('The Docker Layer Cache Bug That Took Six Months to Notice') is the 'closest match to the search phrase,' but that title was not the recommended pick."
+    },
+    {
+      "text": "SEO packet delivered with a meta description of roughly 120-170 characters that accurately pitches the post",
+      "passed": true,
+      "evidence": "Meta description is 158 characters: \"Our CI builds crept from 12 to 40 minutes over 6 months and nobody noticed. The cause: a reordered Dockerfile line that silently broke our Docker layer cache.\""
+    },
+    {
+      "text": "SEO packet includes a short readable hyphenated URL slug derived from the search phrase",
+      "passed": true,
+      "evidence": "URL slug given as `docker-layer-cache-ci-builds-slow`, directly derived from the search phrase."
+    },
+    {
+      "text": "Any [IMAGE] placeholders include alt text describing the image and a descriptive filename (not IMG_001 or generic)",
+      "passed": true,
+      "evidence": "Both placeholders include full alt text and descriptive filenames, e.g. \"alt: Side-by-side flowchart showing how reordering COPY and RUN npm ci...| file: docker-layer-cache-order-before-after.png\"."
+    },
+    {
+      "text": "SEO packet or editor's notes mention setting the canonical URL when cross-posting",
+      "passed": true,
+      "evidence": "\"Canonical note: If cross-posting this beyond dev.to (personal blog, Medium, etc.), publish on one platform first and set the rel=canonical tag on the others to point back to it.\""
+    },
+    {
+      "text": "No keyword stuffing: the search phrase does not repeat unnaturally through the body (reads people-first)",
+      "passed": true,
+      "evidence": "Independent review phase confirms: \"no unnatural repetition of the search phrase; paragraph rhythm varies naturally,\" and the body itself uses varied phrasing (cache hit rate, Docker layer cache, build duration) rather than repeating the exact search phrase."
+    },
+    {
+      "text": "Story-first opening dropping the reader into the incident; facts traceable to notes (3x, 6 months, 40->12 min, COPY reorder); gaps marked [FILL]",
+      "passed": true,
+      "evidence": "Opens with \"A new hire had been on the team for two weeks when they asked... 'Why does our build take 40 minutes?'\"; numbers (12->40 min, 6 months, 3x, COPY reorder) all present, and unverified specifics are marked e.g. \"[FILL: exact before/after cache-hit-rate percentages...]\"."
+    },
+    {
+      "text": "Three strategy-diverse titles with a recommended pick and reason",
+      "passed": true,
+      "evidence": "Three titles given with distinct strategies (bold promise+number, why+number, descriptive/keyword-forward), each with a rationale, and #1 explicitly marked \"Recommended\" with reasoning."
+    },
+    {
+      "text": "No banned phrases or AI-tells; ending has concrete next action and an engagement question for dev.to",
+      "passed": true,
+      "evidence": "Review phase states \"none of the banned phrases found\"; post ends with \"Go check your own Docker cache hit rate this week... the cheapest CI fix you'll make all quarter.\" followed by the engagement question \"What silent regression has your team normalized without noticing?\""
+    }
+  ],
+  "summary": {
+    "passed": 9,
+    "failed": 1,
+    "total": 10,
+    "pass_rate": 0.9
+  }
+}

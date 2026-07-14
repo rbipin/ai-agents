@@ -1,0 +1,60 @@
+{
+  "expectations": [
+    {
+      "text": "Plan identifies a plausible search phrase (e.g. 'diff env files between environments' / 'environment config drift tool')",
+      "passed": true,
+      "evidence": "Phase 3 states: 'Search phrase: \"environment config drift detection tool\" (naturally covers \"diff env variables across environments\" too)'."
+    },
+    {
+      "text": "The recommended title contains the search phrase or a close natural variant, without reading as keyword-contorted",
+      "passed": true,
+      "evidence": "Recommended title 'How a Missing REDIS_URL Took Down Prod (and the CLI Tool I Built So It Wouldn't Happen Again)' reads as natural narrative prose, and the rationale explicitly notes it 'keeps the search phrase's intent (\"config drift,\" \"prod incident\") implicit in a way that reads human'."
+    },
+    {
+      "text": "SEO packet delivered with a meta description of roughly 120-170 characters that accurately pitches the post",
+      "passed": true,
+      "evidence": "Meta description: 'A missing REDIS_URL took down our prod checkout service. Here's envdiff, the open-source Go CLI I built to catch environment config drift before it ships.' noted as 153 chars, accurately summarizing the post."
+    },
+    {
+      "text": "SEO packet includes a short readable hyphenated URL slug",
+      "passed": true,
+      "evidence": "URL slug given as `envdiff-environment-config-drift-cli`."
+    },
+    {
+      "text": "Repo/tool links use descriptive anchor text, not 'click here' or bare URLs pasted as anchors",
+      "passed": true,
+      "evidence": "Links use anchor text like '[envdiff](...)', '[GitHub issue tracker](...)', and '[open an issue](...)' rather than 'click here' or raw URLs."
+    },
+    {
+      "text": "SEO packet or editor's notes mention setting the canonical URL when cross-posting",
+      "passed": true,
+      "evidence": "SEO Packet includes: 'Canonical note: If this post is cross-posted anywhere besides dev.to... set the canonical URL to wherever it lives first so the copies don't compete with each other in search.'"
+    },
+    {
+      "text": "Leads with the reader's problem (config drift / REDIS_URL incident), not tool features; limitations (.env/JSON only, no YAML, regex secrets) stated openly",
+      "passed": true,
+      "evidence": "Post opens with the Tuesday deploy / missing REDIS_URL incident before introducing envdiff; 'What it doesn't do yet' section states .env/JSON-only support, no YAML, and 'basic regex' secrets detection openly."
+    },
+    {
+      "text": "Facts traceable to notes (800 lines Go, single binary, 340 stars/2 months); gaps marked [FILL]",
+      "passed": true,
+      "evidence": "Post states 'about 800 lines of Go, one binary' and '340 GitHub stars in about two months'; repo URL and install command are marked `[FILL: ...]` as unresolved gaps."
+    },
+    {
+      "text": "Three strategy-diverse titles with a recommended pick and reason",
+      "passed": true,
+      "evidence": "Three titles given (narrative/incident-led, provocative claim, literal/keyword-forward) with '#1' recommended and an explicit reason ('genuine narrative pull... reads human')."
+    },
+    {
+      "text": "No banned phrases or AI-tells; try/contribute CTA without star-begging; engagement question for dev.to",
+      "passed": true,
+      "evidence": "No AI-tell phrases (e.g. 'delve', 'unleash', 'game-changer') found in the post; CTA is 'Try it before your next prod deploy' and 'open an issue' without any star-begging; closes with engagement question 'What's the closest your team has come to a REDIS_URL-shaped incident...'"
+    }
+  ],
+  "summary": {
+    "passed": 10,
+    "failed": 0,
+    "total": 10,
+    "pass_rate": 1.0
+  }
+}

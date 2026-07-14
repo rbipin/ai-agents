@@ -1,0 +1,60 @@
+{
+  "expectations": [
+    {
+      "text": "Plan identifies a plausible search phrase \u2014 a query a CI-owning dev would actually type (e.g. about slow docker builds / CI layer cache)",
+      "passed": false,
+      "evidence": "The Writing Plan section defines archetype, hook, sections, takeaway, and visuals, but never identifies a search phrase or does any keyword/query research."
+    },
+    {
+      "text": "The recommended title contains the search phrase or a close natural variant, without reading as keyword-contorted",
+      "passed": false,
+      "evidence": "No search phrase was ever identified (see assertion 1), so the recommended title 'The CI Pipeline That Got 3x Slower and Nobody Noticed' cannot be evaluated as matching one; it is a curiosity-driven title, not a search-derived one."
+    },
+    {
+      "text": "SEO packet delivered with a meta description of roughly 120-170 characters that accurately pitches the post",
+      "passed": false,
+      "evidence": "No meta description or SEO packet exists anywhere in the document; only a 'One-line summary for sharing on social' is provided, which is a social blurb, not a meta description."
+    },
+    {
+      "text": "SEO packet includes a short readable hyphenated URL slug derived from the search phrase",
+      "passed": false,
+      "evidence": "No URL slug of any kind appears in the document."
+    },
+    {
+      "text": "Any [IMAGE] placeholders include alt text describing the image and a descriptive filename (not IMG_001 or generic)",
+      "passed": false,
+      "evidence": "No [IMAGE: ...] placeholders remain in the final post; Editor's Notes state a redundant one was silently removed, and no alt text or filenames are specified anywhere."
+    },
+    {
+      "text": "SEO packet or editor's notes mention setting the canonical URL when cross-posting",
+      "passed": false,
+      "evidence": "Editor's Notes cover [FILL] items, reviewer flags, and visuals to create, but never mention canonical URLs or cross-posting."
+    },
+    {
+      "text": "No keyword stuffing: the search phrase does not repeat unnaturally through the body (reads people-first)",
+      "passed": true,
+      "evidence": "The body reads as natural prose throughout (e.g. 'Docker builds are fast when they can reuse layers from a previous build') with no repeated keyword phrase forced into the text."
+    },
+    {
+      "text": "Story-first opening dropping the reader into the incident; facts traceable to notes (3x, 6 months, 40->12 min, COPY reorder); gaps marked [FILL]",
+      "passed": true,
+      "evidence": "Opens with 'A new hire asked it on his second week: \"Why do our builds take 40 minutes?\"' and includes the 6-month drift, 3x slowdown, 40\u219212 min fix, and COPY reorder cause, with two clearly marked `[FILL: ...]` gaps."
+    },
+    {
+      "text": "Three strategy-diverse titles with a recommended pick and reason",
+      "passed": true,
+      "evidence": "Three titles are given with distinct strategies (bold-claim/curiosity, 'why'-provocation, 'how'+number) and title 1 is starred 'Recommended' with an explicit reason tied to the audience."
+    },
+    {
+      "text": "No banned phrases or AI-tells; ending has concrete next action and an engagement question for dev.to",
+      "passed": true,
+      "evidence": "Reviewer flags note 'no banned AI-tell phrases'; the post ends with a concrete action ('Pick one number that's allowed to drift unnoticed today, and put a metric on it') and an engagement question ('What's the slowest part of your pipeline that nobody's questioned in months?')."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 6,
+    "total": 10,
+    "pass_rate": 0.4
+  }
+}

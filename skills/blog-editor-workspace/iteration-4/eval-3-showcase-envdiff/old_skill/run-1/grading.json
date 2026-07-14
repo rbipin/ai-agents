@@ -1,0 +1,60 @@
+{
+  "expectations": [
+    {
+      "text": "Plan identifies a plausible search phrase (e.g. 'diff env files between environments' / 'environment config drift tool')",
+      "passed": false,
+      "evidence": "The writing plan (Phase 3) and title rationale discuss archetype, hook, and reader but never identify or name a target search phrase or keyword; no SEO/search planning step exists anywhere in the document."
+    },
+    {
+      "text": "The recommended title contains the search phrase or a close natural variant, without reading as keyword-contorted",
+      "passed": false,
+      "evidence": "No search phrase was ever identified (see #1), so the recommended title 'envdiff: the CLI that would've saved us from a 2 a.m. Redis outage' cannot be evaluated as containing one; it is a story-led title, not a search-oriented one."
+    },
+    {
+      "text": "SEO packet delivered with a meta description of roughly 120-170 characters that accurately pitches the post",
+      "passed": false,
+      "evidence": "No meta description or SEO packet appears anywhere in the deliverable; only a 'one-line summary for social sharing' is provided, which is a different artifact and not character-length-constrained for meta purposes."
+    },
+    {
+      "text": "SEO packet includes a short readable hyphenated URL slug",
+      "passed": false,
+      "evidence": "No URL slug of any kind is present in the post, editor's notes, or any other section."
+    },
+    {
+      "text": "Repo/tool links use descriptive anchor text, not 'click here' or bare URLs pasted as anchors",
+      "passed": false,
+      "evidence": "The repo link is left as a raw placeholder 'Repo: `[FILL: GitHub URL]`' with no anchor text or markdown link formatting at all, so descriptive-anchor-text practice is not demonstrated."
+    },
+    {
+      "text": "SEO packet or editor's notes mention setting the canonical URL when cross-posting",
+      "passed": false,
+      "evidence": "Editor's Notes cover FILL items, reviewer flags, visuals, and a social summary, but there is no mention of canonical URLs or cross-posting anywhere in the document."
+    },
+    {
+      "text": "Leads with the reader's problem (config drift / REDIS_URL incident), not tool features; limitations (.env/JSON only, no YAML, regex secrets) stated openly",
+      "passed": true,
+      "evidence": "The post opens with 'We shipped a production incident because REDIS_URL existed in staging and didn't exist in prod' and includes a dedicated 'What it doesn't do yet' section stating 'No YAML support yet... It only understands .env files and JSON configs' and 'Secrets scanning is basic regex.'"
+    },
+    {
+      "text": "Facts traceable to notes (800 lines Go, single binary, 340 stars/2 months); gaps marked [FILL]",
+      "passed": true,
+      "evidence": "The post states 'About 800 lines of Go... single binary. No dependencies' and 'envdiff has picked up 340 GitHub stars in about two months,' while unverifiable specifics (incident duration, install command, repo URL) are explicitly marked with `[FILL: ...]` placeholders."
+    },
+    {
+      "text": "Three strategy-diverse titles with a recommended pick and reason",
+      "passed": true,
+      "evidence": "Three distinct titles are given (story-led incident title, why-question title, and stats-forward title), each with a rationale, and '#1' is explicitly recommended with a stated reason ('keeps the archetype's promise... creating the most curiosity')."
+    },
+    {
+      "text": "No banned phrases or AI-tells; try/contribute CTA without star-begging; engagement question for dev.to",
+      "passed": true,
+      "evidence": "The CTA section invites readers to 'Try it, break it, tell me what's missing' and solicits PRs without asking for stars, and it closes with an engagement question: 'What's the smallest env var that's ever caused you the biggest outage?'; editor's notes also state the reviewer 'found no banned AI-tell phrases or grammar issues.'"
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 6,
+    "total": 10,
+    "pass_rate": 0.4
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "expectations": [
+    {
+      "text": "Plan identifies a plausible search phrase (e.g. 'git bisect run automate' / 'find breaking commit automatically')",
+      "passed": true,
+      "evidence": "Plan states: \"Search phrase the post targets: 'automate git bisect' / 'git bisect run script'.\""
+    },
+    {
+      "text": "The recommended title contains the search phrase or a close natural variant, without reading as keyword-contorted",
+      "passed": true,
+      "evidence": "Recommended title \"TIL: git bisect Can Run the Whole Hunt for You\" naturally contains 'git bisect' and a natural variant of 'run'/'automate' (\"Can Run the Whole Hunt\") without contorted phrasing."
+    },
+    {
+      "text": "SEO packet delivered with a meta description of roughly 120-170 characters that accurately pitches the post",
+      "passed": true,
+      "evidence": "Meta description \"Spent 3 hours manually bisecting ~200 commits. `git bisect run` + a 5-line script found the bad commit in 4 minutes. Here's the whole setup.\" is 140 characters and accurately summarizes the post."
+    },
+    {
+      "text": "SEO packet includes a short readable hyphenated URL slug",
+      "passed": true,
+      "evidence": "Slug given as `til-git-bisect-run-automate-binary-search` \u2014 short, readable, hyphenated."
+    },
+    {
+      "text": "SEO packet or editor's notes mention setting the canonical URL when cross-posting",
+      "passed": true,
+      "evidence": "SEO packet states: \"Canonical URL: If cross-posting from a personal blog later, set `canonical_url` in the dev.to front matter.\""
+    },
+    {
+      "text": "No keyword stuffing: 'git bisect' appears naturally where needed, not repeated mechanically",
+      "passed": true,
+      "evidence": "'git bisect' / 'git bisect run' appears in section headers and code context tied to the narrative, not mechanically repeated throughout the body."
+    },
+    {
+      "text": "Post body is roughly 300-600 words (TIL exception), humble generous tone, one nugget, not padded to 1000+",
+      "passed": true,
+      "evidence": "Editor's Notes confirms \"~430 words for the post body \u2014 inside the 300\u2013600 TIL band\"; tone is humble (\"I knew git bisect... What I didn't know is...\") with a single central nugget (git bisect run)."
+    },
+    {
+      "text": "Facts traceable to notes (3 hours, ~200 commits, 4 minutes, 8 steps, exit 0/non-zero, curl health endpoint); gaps marked [FILL]",
+      "passed": true,
+      "evidence": "Post/plan include 3 hours, ~200 commits, 4 minutes, 8 steps (log\u2082200\u22488), exit 0/non-zero contract, and curl health endpoint; unresolved specifics are marked with `[FILL: ...]` (last-known-good ref, build/run commands, real health endpoint)."
+    },
+    {
+      "text": "Three strategy-diverse titles with a recommended pick and reason",
+      "passed": true,
+      "evidence": "Three titles given with distinct strategies (honest TIL framing, outcome-forward, numbers-led curiosity hook), with option 1 marked '(recommended \u2014 honest TIL framing, names the feature)'."
+    },
+    {
+      "text": "No banned phrases or AI-tells; ending has concrete next action and an engagement question for dev.to",
+      "passed": true,
+      "evidence": "Post ends with a concrete action (\"write the five-line check script first \u2014 or better, write a tiny check.sh for your project this week and stash it somewhere you'll find it mid-incident\") followed by the engagement question \"What's the longest you've spent manually hunting a bad commit before someone showed you a better way?\""
+    }
+  ],
+  "summary": {
+    "passed": 10,
+    "failed": 0,
+    "total": 10,
+    "pass_rate": 1.0
+  }
+}

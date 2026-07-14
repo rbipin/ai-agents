@@ -1,0 +1,16 @@
+{
+  "eval_id": 1,
+  "eval_name": "opinion-microservices",
+  "prompt": "Opinion: most teams should NOT adopt microservices. Consultant across a dozen mid-size companies / 5 years, ~2 truly needed them. 8-person team -> 15 services -> 40% of time on infra plumbing. Monolith with module boundaries = 90% of benefit. When they DO make sense: independent scaling, 20+ engineers, compliance domains. Audience: engineering leads / staff engineers. Platform: dev.to.",
+  "assertions": [
+    "Plan identifies a plausible search phrase (e.g. microservices vs monolith / should we adopt microservices) OR explicitly reasons about the SEO layer for an opinion piece",
+    "The recommended title contains the search phrase or a close natural variant, without reading as keyword-contorted",
+    "SEO packet delivered with a meta description of roughly 120-170 characters that accurately pitches the post",
+    "SEO packet includes a short readable hyphenated URL slug",
+    "SEO packet or editor's notes mention setting the canonical URL when cross-posting",
+    "No keyword stuffing: 'microservices' and related phrases appear naturally, not repeated mechanically",
+    "Opens with a bold claim or provocative question (no incident available); claims backed by numbers from notes (dozen companies, 5 years, 40%, 90%, 20+); steelmans the other side (when microservices DO make sense)",
+    "Three strategy-diverse titles with a recommended pick and reason",
+    "No banned phrases or AI-tells; ending has concrete next action and an engagement question for dev.to"
+  ]
+}

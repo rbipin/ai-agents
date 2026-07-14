@@ -1,0 +1,17 @@
+{
+  "eval_id": 3,
+  "eval_name": "showcase-envdiff",
+  "prompt": "Showcase open-source CLI 'envdiff': diffs env configs across stages, flags drift. Born from a REDIS_URL prod incident. ~800 lines Go, single binary, 340 stars in 2 months. Limitations: .env/JSON only, no YAML, basic regex secrets scanning. Wants users and contributors. Audience: DevOps/backend. Platform: dev.to.",
+  "assertions": [
+    "Plan identifies a plausible search phrase (e.g. 'diff env files between environments' / 'environment config drift tool')",
+    "The recommended title contains the search phrase or a close natural variant, without reading as keyword-contorted",
+    "SEO packet delivered with a meta description of roughly 120-170 characters that accurately pitches the post",
+    "SEO packet includes a short readable hyphenated URL slug",
+    "Repo/tool links use descriptive anchor text, not 'click here' or bare URLs pasted as anchors",
+    "SEO packet or editor's notes mention setting the canonical URL when cross-posting",
+    "Leads with the reader's problem (config drift / REDIS_URL incident), not tool features; limitations (.env/JSON only, no YAML, regex secrets) stated openly",
+    "Facts traceable to notes (800 lines Go, single binary, 340 stars/2 months); gaps marked [FILL]",
+    "Three strategy-diverse titles with a recommended pick and reason",
+    "No banned phrases or AI-tells; try/contribute CTA without star-begging; engagement question for dev.to"
+  ]
+}
