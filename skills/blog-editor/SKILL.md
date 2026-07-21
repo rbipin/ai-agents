@@ -23,6 +23,11 @@ reader's time. Answer for yourself:
 - What angle does this offer that a hundred existing posts don't —
   a real incident, a surprising result, hard-won numbers, an unpopular
   lesson?
+- For *I built something* and *Showcase* posts, one more hard question:
+  what existing tools already do this, and why would a stranger switch?
+  If the honest answer is "they wouldn't", the differentiator — an
+  unusual architecture, a constraint, a tradeoff — is the real angle,
+  not the app itself.
 
 Then give one verdict:
 
@@ -85,13 +90,24 @@ Present a short plan and get approval before writing:
   nobody would plausibly search for this (a pure hot take, a personal
   story), say so and skip the SEO layer.
 - **Hook:** the opening moment or pain point, in one sentence.
-- **Sections:** 3–5, each with one line on what it covers and why it earns
-  its place.
+- **Sections:** 3–5 (hard cap — merge or cut, never sprawl to 6), each
+  with one line on what it covers and why it earns its place. **Lead
+  with your edge:** the post's most distinctive material must appear by
+  section 2. If the strongest content is the architecture or a hard-won
+  tradeoff, that *is* the angle — restructure the post around it, don't
+  append it after the backstory.
 - **Takeaway:** what the reader leaves with.
+- **Channel fit (when relevant):** if the post's differentiator would
+  land harder with a different audience than the user's stated platform
+  (e.g., "local-first, no backend" plays better on HN or a niche
+  subreddit than on dev.to), say so in one line. The user decides.
 - **Visuals:** 1–3 suggested spots, each justified. Match type to purpose:
   - process/architecture/flow → Mermaid diagram (you'll write the code)
   - comparison or options → table
   - UI, output, or result → screenshot placeholder
+  - interaction or UX loop → short GIF / screen recording placeholder —
+    static screenshots don't sell an interaction. For build and showcase
+    posts, a demo GIF near the top is the default suggestion.
   A visual must replace paragraphs of explanation, not decorate. If none
   earns its place, say so — zero visuals is a valid answer.
 
@@ -121,6 +137,10 @@ steelmanned counterpoint for an opinion.
   moment; drop the reader into it. When there's no natural incident (an
   opinion or comparison piece), open with a provocative question or a
   bold, defensible claim instead. Never open with throat-clearing.
+  Relatable isn't enough: if the opening describes an experience every
+  reader in the niche has had, it's a commodity opening. The first two
+  lines must contain something only this post can say — a number, a
+  weird decision, a contrarian claim.
 - Conversational body: "you" and "I", short paragraphs of 2–4 sentences,
   like explaining to a smart friend over coffee.
 - Humor comes from the real struggle ("the deploy failed at 4:58 PM on a
@@ -141,7 +161,10 @@ steelmanned counterpoint for an opinion.
 - End with a genuine takeaway plus one concrete next action the reader
   can take this week ("pick one slow CI job and add a cache metric") —
   never a summary rehash of what they just read. Readers do what you
-  ask; vague endings get nothing.
+  ask; vague endings get nothing. For build and showcase posts, make
+  one specific honest ask — star the repo, file feedback, try the demo
+  in 30 seconds. "Try it, or steal the idea" is a shrug, not a call to
+  action.
 
 **Never write any of these:** "In this article", "In this post, we will",
 "Let's dive in", "In conclusion", "delve", "moreover", "it's worth
@@ -195,10 +218,11 @@ before polishing:
 
 1. **Spelling & grammar:** typos, agreement errors, malformed markdown,
    broken code fences or Mermaid syntax.
-2. **Emotion:** does the hook create genuine curiosity? Does the humor
-   land or feel forced? Does the energy sag anywhere? Does the tone match
-   the archetype (a flat build post and a wacky war story are both
-   failures)?
+2. **Emotion:** does the hook create genuine curiosity — and could it
+   only have been written for *this* post, or would it fit a hundred
+   others? Does the humor land or feel forced? Does the energy sag
+   anywhere? Does the tone match the archetype (a flat build post and a
+   wacky war story are both failures)?
 3. **Content:** is every claim backed by the notes? Does the post keep
    the title's promise? Any section that a reader would skip? Anything
    confusing to someone without the author's context?
@@ -267,6 +291,11 @@ Then deliver:
      copy for the click, written for a human.
    - **URL slug** — short and readable, built from the search phrase
      (`docker-layer-cache-ci`).
+   - **Tags** — for platforms with tags (dev.to, Medium, Hashnode),
+     suggest 3–4. Prefer high-traffic tags the target reader actually
+     follows (#programming, #javascript, #productivity) over
+     niche-accurate ones (#showdev); at most one niche tag. Tags are
+     distribution, not description.
    - **Canonical note** — if the user is cross-posting (dev.to, Medium,
      personal blog), remind them to set the canonical URL to wherever
      the post lives first, so the copies don't compete with each other
